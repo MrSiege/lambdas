@@ -1,0 +1,76 @@
+/**
+ * 栈类型的数据结构
+ * @author danny
+ * */
+class Stack{
+    /**
+     * 构造函数
+     * @constructor
+     * */
+    constructor({size}){
+        if(typeof size === "number" && size > 0){
+            this.dataSource = []; //数据源
+            this.top = 0; //栈顶
+            this.size = size;
+        }else{
+            throw Error("Please pass a meaningful stack size");
+        }
+    }
+    /**
+     * 向栈内添加元素
+     * @param {object} element 元素参数
+     * @return {boolean} 是否添加成功
+     * */
+    push(element){
+        if(this.isFull()){
+           return false;
+        }
+        this.dataSource[this.top] = element;
+        this.top = this.top + 1;
+    }
+    /**
+     * 弹出栈顶元素
+     * @return {object} 栈顶元素
+     * */
+    pop(){
+        if(this.isEmpty()){
+            return undefined;
+        }
+        const element = this.dataSource[this.top];
+        this.top = this.top - 1;
+        return element;
+    }
+    /**
+     * 返回栈顶元素
+     * @return {object} 栈顶元素
+     * */
+    peek(){
+        if(this.isEmpty()){
+            return undefined;
+        }
+        return this.dataSource[this.top];
+    }
+    /**
+     * 置空栈
+     * @return {this} 自身引用
+     * */
+    empty(){
+        this.top = 0;
+        this.dataSource = [];
+        return this;
+    }
+    /**
+     * 判空栈
+     * @return {boolean} 栈是否为空栈
+     * */
+    isEmpty() {
+        return this.top === 0;
+    }
+    /**
+     * 判满栈
+     * @return {boolean} 栈是否已满
+     * */
+    isFull(){
+        return this.top === this.size;
+    }
+}
