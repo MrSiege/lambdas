@@ -1,13 +1,14 @@
 {
-  "name": "functional",
+  "name": "gracefully",
+  "author": "Benjamin engle",
+  "license": "ISC",
   "version": "1.0.0",
+  "private":true,
   "description": "函数式编程库",
   "main": "functional/js/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Benjamin engle",
-  "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",

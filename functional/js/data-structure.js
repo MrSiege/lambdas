@@ -1,5 +1,5 @@
 /**
- * 栈类型的数据结构
+ * 数据结构 —— 栈
  * @author danny
  * */
 class Stack{
@@ -36,9 +36,8 @@ class Stack{
         if(this.isEmpty()){
             return undefined;
         }
-        const element = this.dataSource[this.top];
         this.top = this.top - 1;
-        return element;
+        return this.dataSource[this.top];
     }
     /**
      * 返回栈顶元素
@@ -74,3 +73,11 @@ class Stack{
         return this.top === this.size;
     }
 }
+/**
+ * 数据结构 —— 环形队列
+ * @author danny
+ * */
+class Queue{
+
+}
+export {Stack, Queue};

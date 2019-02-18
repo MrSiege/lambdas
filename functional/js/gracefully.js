@@ -1,3 +1,4 @@
+import {Stack} from "./data-structure";
 /**
  * 关于函数式编程的一些通用的函数抽象单元，于 2019 年 2月13日学习《JavaScript函数式编程》一书时编写
  * @author danny
@@ -278,12 +279,173 @@ export default class _{
         }
     };
     /**
-     * 接收一个数据源参数与谓词函数，返回该谓词为 true 时的第一个元素
+     * 接收一个数据源参数与排序函数，返回按照排序函数指定数据进行排序的源数据
      * @param {object} dataSource 数据源参数
-     * @param {function} condition 排序条件函数
+     * @param {function} pickup 排序条件函数
      * @return {object} 排序结果
      * */
-    static sortBy(dataSource, condition){
-        
+    static sortBy(dataSource, pickup){
+        if(!_.isFunction(pickup)){
+            _.fail("Expects data of a function type as a parameter");
+        }
+        if(!_.isIndexed(dataSource)){
+            _.fail("Not supported on non-indexed type");
+        }
+        //模拟系统的堆栈帧
+        const stack = new Stack({size:10000});
+        //源数据镜像，这里复制一个镜像是为了不影响到源数据数组的结构
+        const dataSourceMirroring = [];
+        _.each(dataSource, function (item, index) {
+            dataSourceMirroring[index] = item;
+        });
+        let keyIndex, key, temp;
+        // 调用该函数完成一帧的排序
+        const sort = function sort({i, j}){
+            const originalI = i, originalJ = j;
+            // init parameter
+            keyIndex = i;
+            key = dataSourceMirroring[i];
+            while(i !== j){
+                //寻找小于关键值的数据
+                while(pickup(dataSourceMirroring[j]) >= pickup(key) && i < j){
+                    j = j - 1;
+                }
+                //寻找大于关键值的数据
+                while(pickup(dataSourceMirroring[i]) <= pickup(key) && i < j){
+                    i = i + 1;
+                }
+                if(i !== j){
+                    //交换索引 i 与索引 j 的值
+                    temp = dataSourceMirroring[i];
+                    dataSourceMirroring[i] = dataSourceMirroring[j];
+                    dataSourceMirroring[j] = temp;
+                }
+            }
+            //交换关键值到正确位置
+            temp = dataSourceMirroring[j];
+            dataSourceMirroring[j] = key;
+            dataSourceMirroring[keyIndex] = temp;
+            return {i: originalI, j: originalJ, partitionIndex:j}; //返回关键数据位置
+        };
+        //保存当前堆栈帧
+        stack.push({i:0, j:dataSourceMirroring.length - 1});
+        //开始模拟系统堆栈帧进行迭代
+        while(!stack.isEmpty()){ // 判断是否是空栈，若不是空栈，则弹出栈顶进行一次划分
+            const endpointIndex = stack.pop();
+            const result = sort(endpointIndex);
+            // 将未处理完成的子序列入栈，长度为 1 的子序列不需要压入堆栈
+            if((result.partitionIndex - result.i) > 1){
+                stack.push({i:result.i, j:result.partitionIndex - 1});
+            }
+            if((result.j - result.partitionIndex) > 1){
+                stack.push({i:result.partitionIndex + 1, j:result.j});
+            }
+        }
+        return dataSourceMirroring;
     };
+    /**
+     * 深度复制一个源对象到目标对象
+     * @author Daniel William
+     * @param {object} sourceObject 源对象
+     * @return {object} 新对象
+     * 在使用递归算法时应尽量避免深层递归，递归过深会耗尽栈的内存，造成栈溢出。
+     * */
+    static duplicate(sourceObject){
+        //输出复制的值
+        let showCharsLength = 60;
+        let info = sourceObject.toString().length < showCharsLength ?
+            sourceObject.toString() :
+            sourceObject.toString().substr(0, showCharsLength) + "...";
+
+        console.log("[duplicate function] copy value ：%c" + info, "color:green");
+        //粗颗粒度的判断类型
+        switch (typeof sourceObject) {
+            case "number":
+            case "function":
+            case "string":
+            case "boolean":
+            case "undefined":
+                //非引用类型值直接返回复制值，复杂类型进入下方 object case 子句深度复制值
+                //当前暂时将 function 直接返回
+                return sourceObject;
+            case "object":
+                //进入到 object case子句，细颗粒度的判断 object 的类型
+                //新的引用，用来存储复制的值
+                let targetObject;
+                switch (Object.prototype.toString.call(sourceObject)) {
+                    case "[object Null]":
+                        return sourceObject;
+                    case "[object Array]":
+                        //申请新的数组存储空间
+                        targetObject = [];
+                        //遍历数组元素
+                        for (let i = 0; i < sourceObject.length; i++){
+                            //递归复制数组的值，可以复制值为 object 的数组值
+                            targetObject[i] = _.duplicate(sourceObject[i]);
+                        }
+                        return targetObject;
+                    case "[object Object]":
+                        //申请新的对象存储空间
+                        targetObject = {};
+                        //遍历对象属性
+                        for (const attribute in sourceObject) {
+                            //递归复制对象的值
+                            targetObject[attribute] = _.duplicate(sourceObject[attribute]);
+                        }
+                        return targetObject;
+                    default:
+                        console.warn("un know element type!");
+                        break;
+                }
+                break;
+            default:
+                console.warn("un know element type!");
+                break;
+        }
+    }
+    /**
+     * 将一个对象数组以指定目标键转为(键-值)映射
+     * 如将对象数组 [{name:"danny", value:"311"}, {name:"LiLi", value:"18"}]
+     * 指定键为 name 转为{danny:{name:"danny", value:"311"}, LiLi:{name:"LiLi", value:"18"}}
+     * 在有多层数组嵌套的情况下，会进行递归解析
+     * @author Daniel William
+     * @param {object} sourceData 源数据
+     * @param {string} targetKey 指定键，其值需要在源数据中唯一
+     * @param {boolean} inline 是否直接将一个对象中的数组属性直接解析到对象中
+     *     源数据 [{name:"danny", value:"311", friend:[{name:"LiLi", value:"18"}]}]
+     *     指定为true时：
+     *         {danny:{name:"danny", value:"311", LiLi:{name:"LiLi", value:"18"}}}
+     *     指定为false时：
+     *         {danny:{name:"danny", value:"311", friend:{LiLi:{name:"LiLi", value:"18"}}}}
+     * @return {object} 映射方式存储对象
+     * */
+    static buildObjectMapperByArray(sourceData, targetKey, inline){
+        //创建映射方式存储对象
+        let objectMapper = {};
+        //遍历源数据对象
+        for(let i = 0; i < sourceData.length; i++){
+            let item = sourceData[i];
+            //创建映射
+            objectMapper[item[targetKey]] = item;
+            //检查是否有嵌套数组，遍历对象属性
+            for(let attribute in item){
+                //判断属性是否是自身属性
+                let isSelfAttribute = Object.prototype.hasOwnProperty.call(item, attribute);
+                //判断属性是否是数组类型
+                if(isSelfAttribute && Object.prototype.toString.call(item[attribute]) === "[object Array]"){
+                    //递归建立映射，根据是否内联的参数建立两种不同的嵌套映射
+                    if(inline){
+                        //去除属性名的包裹
+                        let targetObject = _.buildObjectMapperByArray(item[attribute], targetKey, inline);
+                        for(let attribute in targetObject){
+                            objectMapper[item[targetKey]][attribute] = targetObject[attribute];
+                        }
+                    }else{
+                        objectMapper[item[targetKey]][attribute] = _.buildObjectMapperByArray(item[attribute], targetKey, inline);
+                    }
+                }
+            }
+        }
+        return objectMapper;
+    }
 }
