@@ -29,7 +29,7 @@ export default class _{
         throw new Error(thing);
     };
     /**
-     * 向控制台输出一段警告文字
+     * 输出一段警告文字
      * @param {string} thing 警告描述
      * @return {this} 自身引用
      * */
@@ -38,22 +38,14 @@ export default class _{
         return _;
     };
     /**
-     * 向控制台输出一段提示文字
+     * 输出一段提示文字
      * @param {string} thing 提示文字描述
      * @return {this} 自身引用
      * */
     static note(thing) {
-        console.log(["NOTE:", ...arguments].join(" "));
+        console.log(["NOTE:", thing].join(" "));
         return _;
     };
-    /**
-     * 接收一个源数据，将其转换为数组返回
-     * @param {object} dataSource 源数据
-     * @return {array} 转换后的结果
-     * */
-    static toArray(dataSource){
-        return [...dataSource];
-    }
     /**
      * 判断传递进来的参数是否是字符串数据类型
      * @param {object} string 参数
@@ -167,6 +159,19 @@ export default class _{
         }
     };
     /**
+     * 接收一个生成值的函数参数与长度参数，返回一个由该函数生成初始值的数组
+     * @param {function} generateValue 生成值的函数参数
+     * @param {number} length 长度
+     * @return {array} 数组
+     * */
+    static initialArray(generateValue, length){
+        const array = [];
+        for (let index = 0; index < length; index = index + 1) {
+            array[index] = generateValue && generateValue(index);
+        }
+        return array;
+    };
+    /**
      * 接收一个数据源参数与遍历行为参数，依次对数据源的每一项掉用遍历行为函数
      * @param {object} dataSource 数据源参数
      * @param {function} itemAction 遍历行为
@@ -180,22 +185,6 @@ export default class _{
             itemAction && itemAction(dataSource[index], index);
         }
         return _;
-    };
-    /**
-     * 接收一个数据源参数与遍历行为参数，依次对数据源的每一项掉用遍历行为函数
-     * @param {object} dataSource 数据源参数
-     * @param {function} itemAction 遍历行为
-     * @return {object} 执行结果
-     * */
-    static map(dataSource, itemAction){
-        if(!_.isIndexed(dataSource)){
-            _.fail("Not supported on non-indexed type");
-        }
-        const result = [];
-        for(let index = 0; index < dataSource.length; index = index + 1){
-            result.push(itemAction && itemAction(dataSource[index], index));
-        }
-        return result;
     };
     /**
      * 接收一个集合参数与一个谓词，当对于集合中所有的元素谓词函数都返回 true 时，
@@ -213,7 +202,7 @@ export default class _{
         }
         let result = true;
         // arguments is array like of data
-        const array = _.toArray(arguments);
+        const array = [...arguments];
         for (let index = 0; index < array.length; index = index + 1){
             const item = _.nth(array, index);
             result = pred(item) && result;
@@ -221,7 +210,8 @@ export default class _{
         return result;
     };
     /**
-     * 接收一个集合参数与一个谓词，当对于集合中有一个元素谓词函数返回 true 时，返回 true，否则返回 false
+     * 接收一个集合参数与一个谓词，当对于集合中有一个元素谓词函数返回 true 时，
+     * 返回 true，否则返回 false
      * @param {object} dataSource 数据源
      * @param {function} pred 谓词函数
      * @return {boolean} 运算结果
@@ -235,7 +225,7 @@ export default class _{
         }
         let result = false;
         // arguments is array like of data
-        const array = _.toArray(arguments);
+        const array = [...arguments];
         for (let index = 0; index < array.length; index = index + 1){
             const item = _.nth(array, index);
             result = pred(item) || result;
@@ -275,15 +265,6 @@ export default class _{
         }
     };
     /**
-     * 接收一个元素和一个数组，将元素拼接到数组的前方后返回
-     * @param {object} elem 元素
-     * @param {array} arr 数组
-     * @return {array} 拼接后返回的元素
-     * */
-    static construct(elem, arr){
-        return [elem].concat(arr);
-    }
-    /**
      * 接收一个返回谓词的函数参数，返回一个反转谓词参数执行结果的参数(补集)
      * @param {function} pred 返回谓词的函数参数
      * @return {function} Inversion results function
@@ -291,7 +272,7 @@ export default class _{
     static complement(pred){
         if(_.isFunction(pred)){
             return function(){
-                return !pred.apply(undefined, _.toArray(arguments));
+                return !pred.apply(undefined, [...arguments]);
             }
         }else{
             _.fail("Expects data of a function type as a parameter");
@@ -311,7 +292,7 @@ export default class _{
             _.fail("Not supported on non-indexed type");
         }
         //模拟系统的堆栈帧
-        const stack = new Stack({size:Infinity});
+        const stack = new Stack({size:10000});
         //源数据镜像，这里复制一个镜像是为了不影响到源数据数组的结构
         const dataSourceMirroring = [];
         _.each(dataSource, function (item, index) {
@@ -414,7 +395,7 @@ export default class _{
      * @author Daniel William
      * @param {object} sourceObject 源对象
      * @return {object} 新对象
-     * 在使用递归算法时应尽量避免深层递归，递归过深会耗尽系统栈的内存，造成栈溢出。
+     * 在使用递归算法时应尽量避免深层递归，递归过深会耗尽栈的内存，造成栈溢出。
      * */
     static duplicate(sourceObject){
         //输出复制的值
@@ -497,9 +478,6 @@ export default class _{
             for(let attribute in item){
                 //判断属性是否是自身属性
                 let isSelfAttribute = Object.prototype.hasOwnProperty.call(item, attribute);
-                /*if(item.hasOwnProperty(attribute)){
-
-                }*/
                 //判断属性是否是数组类型
                 if(isSelfAttribute && Object.prototype.toString.call(item[attribute]) === "[object Array]"){
                     //递归建立映射，根据是否内联的参数建立两种不同的嵌套映射
@@ -562,118 +540,5 @@ export default class _{
             }
         }
         return values;
-    }
-    /**
-     * 返回一个常量的函数
-     * TODO 这种返回一个常量的函数非常有用，几乎是函数式编程的一个设计模式，经常被简称为 K.
-     * @param {object} value 定义需要返回的常量
-     * @return {object} 常量的值
-     * */
-    static always(value){
-        return function(){
-            return value;
-        }
-    }
-    /**
-     * 接收一个最佳值的比较规则函数与一个数据源, 返回数据源中的最佳值
-     * @return {object} 数据源中的最佳值
-     * */
-    static best(dataSource, fun){
-        return _.reduce(dataSource, function (x, y) {
-            return fun(x, y) ? x : y;
-        });
-    }
-    /**
-     * 将一个数据源迭代归结为一个单一的值
-     * @param {object} dataSource 数据源
-     * @param {function} iterator 迭代函数
-     * @param {object} memo 传递给迭代函数的初始值
-     * @param {object} context 上下文绑定
-     * */
-    static reduce(dataSource, iterator, memo, context){
-        if(_.isArray(dataSource) === false || _.isFunction(iterator) === false){
-            return 0;
-        }
-        let iterativeValue = memo;
-        if(_.exist(iterativeValue) === false){
-            iterativeValue = dataSource[0];
-            dataSource.splice({startIndex:0}.startIndex, {delLen:1}.delLen);
-        }
-        _.each(dataSource, function (data, index) {
-            iterativeValue = iterator.call(context, iterativeValue, data, index, dataSource);
-        });
-        return iterativeValue;
-    }
-
-    /**
-     * 接收一个前馈函数与值的生成函数，当生成的值符合前馈函数的条件时，停止执行当前函数
-     * @param {function} feedForward 前馈函数
-     * @param {function} init 值的初始化函数
-     * */
-    static iterateUntil(feedForward, init){
-        const result = [];
-        let index = 0;
-        do {
-            result.push(init());
-            index = index + 1;
-        }while (feedForward(result[result.length], index));
-        return result;
-    }
-    /**
-     * 接收一个函数及一些额外的参数，并返回一个只是调用给定的原始函数的函数
-     * @param {function} fun 原始函数
-     * @return {function}
-     * */
-    static fnull(fun){
-        // 取得除 fun 之外的其他参数
-        const [,...defaults] = arguments;
-        return function(){
-            let index = 0;
-            const args = _.map(_.toArray(arguments), (e) => _.exist(e) ? e : defaults[index++]);
-            return fun.apply(undefined, args);
-        }
-    }
-    /**
-     * 接收一组谓词函数，返回一个验证函数。返回的验证函数在给定对象上执行每个谓词，
-     * 并对每一个返回 false 的谓词增加一个特殊的错误字符到一个数组中。
-     * 如果所有的谓词返回 true, 那么最终返回的结果是一个空数组。否则，结果为错误消息的数组。
-     * @return {function} 聚合了谓词函数的验证函数
-     * */
-    static checker(){
-        const validators = _.toArray(arguments);
-        return function (targetValidationData) {
-            const errors = [];
-            return _.reduce(validators, function (errs, check) {
-                if(check(targetValidationData)){
-                    return errs;
-                }else{
-                    errs.push(check.message);
-                    return errs;
-                }
-            }, errors);
-        }
-    }
-    /**
-     * 创建一个验证器
-     * @param {string} message 验证失败后的错误消息
-     * @param {function} fun 一套验证规则
-     * @return {function} 验证器函数
-     * */
-    static validator(message, fun){
-        const f = function () {
-            return fun.apply(fun, arguments);
-        };
-        f["message"] = message;
-        return f;
-    }
-
-    /**
-     * 返回除数据源第一个元素之外的其他元素
-     * @param {object} dataSource 数据源
-     * @return {object} rest 除第一个元素之外的其他元素
-     * */
-    static rest(dataSource){
-        const [, ...rest] = [...dataSource];
-        return rest;
     }
 }

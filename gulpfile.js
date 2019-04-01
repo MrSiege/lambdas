@@ -6,6 +6,7 @@ var path        = require('path');
 
 var modules = {
     "functional": true,
+    "tetris-game":true
 };
 
 if(!argv.module) {
@@ -27,11 +28,13 @@ var options = {
     dist: {
         root: "build/"+module,
         webpack: "build/"+module+"/",
-        js: "build/"+module+"/js"
+        js: "build/"+module+"/js",
+        css: "build/"+module+"/css"
     },
     src: {
         root: "build/"+module,
-        js: module+"/modules/**/*.js",
+        js: module + "/modules/**/*.js",
+        css:module + "/css/**/*.css",
         thirdPartyLibraries:"/third-party-libraries/**/*.js"
     },
     task: {
@@ -40,6 +43,7 @@ var options = {
         develop:"develop",
         webpack: 'webpack',
         production:"production",
+        packCssTask:"packCssTask",
         thirdPartyLibraries:"thirdPartyLibraries"
     },
     module: module
@@ -51,6 +55,8 @@ gulp.task(options.task.clean, tasks.clean(options));
 gulp.task(options.task.thirdPartyLibraries, tasks.thirdPartyLibraries(options));
 // webpack
 gulp.task(options.task.webpack, tasks.webpackTask(options));
+// css
+gulp.task(options.task.packCssTask, tasks.packCssTask(options));
 // service
 gulp.task(options.task.server, server(options));
 
@@ -58,12 +64,14 @@ if(dev){
     gulp.task(options.task.develop, gulp.series(
         options.task.clean,
         options.task.thirdPartyLibraries,
+        options.task.packCssTask,
         options.task.server
     ));
 }else{
     gulp.task(options.task.production, gulp.series(
         options.task.clean,
         options.task.thirdPartyLibraries,
+        options.task.packCssTask,
         options.task.webpack
     ));
 }

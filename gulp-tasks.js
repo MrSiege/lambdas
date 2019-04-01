@@ -1,5 +1,7 @@
 var gulp            = require('gulp');
+var gulpConcat      = require('gulp-concat');
 var gulpClean       = require('gulp-clean');
+var gulpCsso        = require('gulp-csso');
 var gulpWebpack     = require('gulp-webpack');
 var webpack         = require("webpack");
 var webpackConfig   = require('./webpack-config');
@@ -27,6 +29,20 @@ var thirdPartyLibraries = function thirdPartyLibraries(options){
 };
 
 /**
+ * 打包第三方库的任务
+ * @param {object} options 应用配置参数
+ * @return {function} 打包第三方库执行函数
+ * */
+var packCssTask = function packCssTask(options){
+    return function () {
+        return gulp.src(options.src.css)
+            .pipe(gulpConcat("main.css"))
+            .pipe(gulpCsso())
+            .pipe(gulp.dest(options.dist.css));
+    }
+};
+
+/**
  * webpack
  * @return {function} 执行函数
  * */
@@ -41,5 +57,6 @@ var webpackTask = function webpackTask(options) {
 module.exports = {
     clean:clean,
     webpackTask:webpackTask,
+    packCssTask:packCssTask,
     thirdPartyLibraries:thirdPartyLibraries
 };

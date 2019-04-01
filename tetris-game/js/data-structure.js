@@ -47,7 +47,7 @@ class Stack{
         if(this.isEmpty()){
             return undefined;
         }
-        return this.dataSource[this.top - 1];
+        return this.dataSource[this.top];
     }
     /**
      * 置空栈

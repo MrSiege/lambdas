@@ -45,13 +45,14 @@ module.exports = function(options){
     let minChunkSizePlugin = new webpack.optimize.MinChunkSizePlugin({
         minChunkSize:10000
     });
-    let plugins = options.dev ? [htmlPlugin, sourceMapPlugin] :
+    let plugins = options.dev ? [htmlPlugin] :
         [htmlPlugin, splitChunksPlugin, minChunkSizePlugin];
     return {
         mode:options.dev ? "development" : "production",
         entry: {
             app: options.entry
         },
+        devtool: "inline-source-map",
         output: {
             filename: 'js/[name].[hash:8].bundle.js',
             publicPath: '',
