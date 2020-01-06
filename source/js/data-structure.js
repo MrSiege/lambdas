@@ -23,7 +23,7 @@ class Stack{
      * */
     push(element){
         if(this.isFull()){
-           return false;
+            return false;
         }
         this.dataSource[this.top] = element;
         this.top = this.top + 1;
@@ -47,7 +47,7 @@ class Stack{
         if(this.isEmpty()){
             return undefined;
         }
-        return this.dataSource[this.top];
+        return this.dataSource[this.top - 1];
     }
     /**
      * 置空栈

@@ -1,13 +1,16 @@
 {
   "name": "gracefully",
-  "author": "Benjamin engle",
+  "author": "william field",
   "license": "ISC",
   "version": "1.0.0",
   "private": true,
   "description": "函数式编程库",
   "main": "functional/js/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "run:gracefully": "gulp --submodule source",
+    "build:gracefully": "gulp --production --submodule source",
+    "run:docs": "gulp --submodule docs",
+    "build:docs": "gulp --production --submodule docs"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
