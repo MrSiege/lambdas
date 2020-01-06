@@ -1,11 +1,13 @@
 /**
- * 数据结构 —— 栈
- * @author danny
+ * 数据结构 - 栈的实现
+ * @author william caulfield
  * */
 class Stack{
     /**
      * 构造函数
      * @constructor
+     * @param {object} options
+     * @param {number} options.size 栈的最大容量
      * */
     constructor({size}){
         if(typeof size === "number" && size > 0){
@@ -75,7 +77,7 @@ class Stack{
 }
 /**
  * 数据结构 —— 环形队列
- * @author danny
+ * @author william caulfield
  * */
 class Queue{
 
