@@ -37,7 +37,7 @@ function warning(thing) {
  * @param {string} thing 提示文字描述
  * @return {void}
  * */
-function note(thing) {
+function note() {
   console.log(["NOTE:", ...arguments].join(" "));
 }
 

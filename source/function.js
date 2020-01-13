@@ -94,6 +94,7 @@ function validator(message, fun) {
   const f = function() {
     return fun.apply(fun, arguments);
   };
+  
   f["message"] = message;
   return f;
 }
