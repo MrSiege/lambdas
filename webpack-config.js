@@ -39,24 +39,24 @@ module.exports = function(options) {
   
   // 源代码映射插件
   const sourceMapPlugin = new webpack.SourceMapDevToolPlugin({
-    filename: "js/[name].[hash:8].min.js.map",
-    exclude: ["js/*.js"]
+    filename: "[name].min.js.map",
+    exclude: ["*.js"]
   });
   
   // Js 源代码稠化插件
   let minChunkSizePlugin = new webpack.optimize.MinChunkSizePlugin({
     minChunkSize: 10000
   });
-  let plugins = options.dev ? [htmlPlugin] : [htmlPlugin, splitChunksPlugin, minChunkSizePlugin];
+  let plugins = options.dev ? [] : [splitChunksPlugin, minChunkSizePlugin];
   
   return {
     mode: options.dev ? "development" : "production",
     entry: {
       app: options.entry
     },
-    devtool: "inline-source-map",
+    //devtool: "inline-source-map",
     output: {
-      filename: "js/[name].[hash:8].bundle.js",
+      filename: "[name].js",
       publicPath: "",
       path: path.resolve(__dirname, options.dist.root)
     },

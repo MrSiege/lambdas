@@ -23,7 +23,7 @@ var module = argv.submodule;
 var dev = !argv.production;
 
 var options = {
-  entry: path.resolve(__dirname, module + "/js/index.js"),
+  entry: path.resolve(__dirname, module + "/index.js"),
   dev: dev,
   nodeRoot: "node_modules",
   dist: {
@@ -72,7 +72,4 @@ if (dev) {
   );
 }
 
-gulp.task(
-  "default",
-  gulp.series(dev ? options.task.develop : options.task.production)
-);
+gulp.task("default", gulp.series(dev ? options.task.develop : options.task.production));
