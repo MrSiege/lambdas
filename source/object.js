@@ -27,7 +27,7 @@ function values(object) {
   return values;
 }
 
-export {
+module.exports = {
   keys,
   values,
 }

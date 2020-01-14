@@ -41,7 +41,7 @@ function note() {
   console.log(["NOTE:", ...arguments].join(" "));
 }
 
-export {
+module.exports = {
   note,
   fail,
   warning,

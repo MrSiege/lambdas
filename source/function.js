@@ -99,7 +99,7 @@ function validator(message, fun) {
   return f;
 }
 
-export {
+module.exports = {
   fnull,
   checker,
   always,

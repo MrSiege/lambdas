@@ -82,4 +82,4 @@ class Stack{
 class Queue{
 
 }
-export {Stack, Queue};
+module.exports = {Stack, Queue};

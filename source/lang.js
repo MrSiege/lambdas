@@ -156,7 +156,7 @@ function duplicate(sourceObject) {
   }
 }
 
-export {
+module.exports = {
   toArray,
   isString,
   isNumber,

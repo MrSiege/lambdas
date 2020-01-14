@@ -47,7 +47,7 @@ module.exports = function(options) {
   let minChunkSizePlugin = new webpack.optimize.MinChunkSizePlugin({
     minChunkSize: 10000
   });
-  let plugins = options.dev ? [] : [splitChunksPlugin, minChunkSizePlugin];
+  let plugins = options.dev ? [] : [];
   
   return {
     mode: options.dev ? "development" : "production",
@@ -76,6 +76,6 @@ module.exports = function(options) {
         }
       ]
     },
-    plugins: plugins
+    //plugins: plugins
   };
 };

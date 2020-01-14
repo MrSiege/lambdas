@@ -200,7 +200,7 @@ function reduce(dataSource, iterator, memo, context) {
   return iterativeValue;
 }
 
-export {
+module.exports = {
   allOf,
   anyOf,
   filter,

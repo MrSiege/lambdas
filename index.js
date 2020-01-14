@@ -1,1 +1,2 @@
-module.exports = require('./build/source/index');
+const G = require('./source');
+module.exports = G;

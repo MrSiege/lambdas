@@ -125,4 +125,4 @@ function sortBy(dataSource, pickup) {
   return dataSourceMirroring;
 }
 
-export { nth, each, map, sortBy, construct };
+module.exports = { nth, each, map, sortBy, construct };
