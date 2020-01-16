@@ -3,7 +3,7 @@
  * @return {void}
  * */
 function documentWriteln() {
-  document.writeln(...arguments, "<br/>");
+  document && document.writeln(...arguments, "<br/>");
 }
 
 /**
@@ -11,7 +11,7 @@ function documentWriteln() {
  * @return {void}
  * */
 function documentWrite() {
-  document.writeln(...arguments);
+  document && document.writeln(...arguments);
 }
 
 /**

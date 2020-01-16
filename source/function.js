@@ -1,3 +1,6 @@
+const { truest, toArray } = require('./lang');
+const { map } = require('./array');
+
 /**
  * 接收一个返回谓词的函数参数，返回一个根据参数数据返回 -1 | 0 | 1 格式的函数
  * @param {function} pred 返回谓词的函数参数
@@ -6,9 +9,9 @@
 function comparator(pred) {
   return function(x, y) {
     if (truest(pred && pred(x, y))) {
-      return -1;
-    } else if (truest(pred && pred(y, x))) {
       return 1;
+    } else if (truest(pred && pred(y, x))) {
+      return -1;
     } else {
       return 0;
     }
@@ -36,9 +39,8 @@ function iterateUntil(feedForward, init) {
   const result = [];
   let index = 0;
   do {
-    result.push(init());
-    index = index + 1;
-  } while (feedForward(result[result.length], index));
+    result.push(init(index));
+  } while (feedForward(result[result.length], index++));
   return result;
 }
 
@@ -97,6 +99,19 @@ function validator(message, fun) {
   
   f["message"] = message;
   return f;
+}
+
+/**
+ * 创建一个函数代理
+ * @param {function} targetFunc 被代理函数
+ * @param {function} proxyFunc 代理函数
+ * @param {function} context 上下文
+ * @return {function} 经过包装的代理函数
+ */
+function proxy(targetFunc, proxyFunc, context) {
+  return function (params) {
+    return proxyFunc.aplly(context, targetFunc)
+  };
 }
 
 module.exports = {

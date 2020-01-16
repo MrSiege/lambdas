@@ -1,3 +1,10 @@
+const { toArray, isNumber, isIndexed, isFunction } = require('./lang');
+const { best } = require('./collection');
+const { fail } = require('./utils');
+const { Stack } = require('./data-structure');
+const { each } = require('./array.each');
+const { iterateUntil } = require('./function');
+
 /**
  * 对数据进行一次索引行为，返回索引到的数据值
  * @param {object} dataSource 被索引目标数据
@@ -13,21 +20,6 @@ function nth(dataSource, index) {
     fail("Index value is out of bounds");
   }
   return dataSource[index];
-}
-
-/**
- * 接收一个数据源参数与遍历行为参数，依次对数据源的每一项掉用遍历行为函数
- * @param {object} dataSource 数据源参数
- * @param {function} itemAction 遍历行为
- * @return {void}
- * */
-function each(dataSource, itemAction) {
-  if (!isIndexed(dataSource)) {
-    fail("Not supported on non-indexed type");
-  }
-  for (let index = 0; index < dataSource.length; index = index + 1) {
-    itemAction && itemAction(dataSource[index], index);
-  }
 }
 
 /**
@@ -125,4 +117,18 @@ function sortBy(dataSource, pickup) {
   return dataSourceMirroring;
 }
 
-module.exports = { nth, each, map, sortBy, construct };
+/**
+ * 接受一组数组，将他们通过索引组合起来
+ * @param {array} args 数组
+ * @return {array} 数组
+ */
+function zip(){
+  const arrays = toArray(arguments);
+  const longestArray = best(arrays, (x, y) => x.length > y.length);
+  const length = longestArray.length;
+  const result = iterateUntil((v, i) => i < length - 1, i => arrays.map(v => v[i]));
+  
+  return result.map(v => v.filter(x => x));
+}
+
+module.exports = { nth, each, map, sortBy, construct, zip };

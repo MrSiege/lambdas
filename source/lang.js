@@ -103,13 +103,13 @@ function doWhen(condition, action) {
  * */
 function duplicate(sourceObject) {
   //输出复制的值
-  let showCharsLength = 60;
-  let info =
-    sourceObject.toString().length < showCharsLength
-      ? sourceObject.toString()
-      : sourceObject.toString().substr(0, showCharsLength) + "...";
+  // let showCharsLength = 60;
+  // let info =
+  //   sourceObject.toString().length < showCharsLength
+  //     ? sourceObject.toString()
+  //     : sourceObject.toString().substr(0, showCharsLength) + "...";
 
-  console.log("[duplicate function] copy value ：%c" + info, "color:green");
+  // console.log("[duplicate function] copy value ：%c" + info, "color:green");
   //粗颗粒度的判断类型
   switch (typeof sourceObject) {
     case "number":

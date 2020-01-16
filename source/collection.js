@@ -1,3 +1,7 @@
+const { each } = require('./array.each');
+const { nth } = require('./array');
+const { toArray, isNumber, isIndexed, isFunction, isArray, exist, duplicate } = require('./lang');
+
 /**
  * 接收一个集合参数与一个谓词，当对于集合中所有的元素谓词函数都返回 true 时，
  * 返回 true，否则返回 false
@@ -6,15 +10,8 @@
  * @return {boolean} 运算结果
  * */
 function allOf(dataSource, pred) {
-  if (!isIndexed(dataSource)) {
-    fail("Not supported on non-indexed type");
-  }
-  if (!isFunction(pred)) {
-    fail("Expects data of a function type as a parameter");
-  }
-  let result = true;
-  // arguments is array like of data
-  const array = toArray(arguments);
+  let result = true; 
+  const array = toArray(dataSource);
   for (let index = 0; index < array.length; index = index + 1) {
     const item = nth(array, index);
     result = pred(item) && result;
@@ -29,15 +26,8 @@ function allOf(dataSource, pred) {
  * @return {boolean} 运算结果
  * */
 function anyOf(dataSource, pred) {
-  if (!isIndexed(dataSource)) {
-    fail("Not supported on non-indexed type");
-  }
-  if (!isFunction(pred)) {
-    fail("Expects data of a function type as a parameter");
-  }
   let result = false;
-  // arguments is array like of data
-  const array = toArray(arguments);
+  const array = toArray(dataSource);
   for (let index = 0; index < array.length; index = index + 1) {
     const item = nth(array, index);
     result = pred(item) || result;
@@ -85,13 +75,9 @@ function find(dataSource, pred) {
  * @return {function} Inversion results function
  * */
 function complement(pred) {
-  if (isFunction(pred)) {
-    return function() {
-      return !pred.apply(undefined, toArray(arguments));
-    };
-  } else {
-    fail("Expects data of a function type as a parameter");
-  }
+  return function() {
+    return !pred.apply(undefined, toArray(arguments));
+  };
 }
 
 /**
@@ -102,7 +88,7 @@ function complement(pred) {
  * */
 function groupBy(dataSource, pickup) {
   const groupMap = new Map(),
-    dataSourceMirroring = [];
+  dataSourceMirroring = [];
   each(dataSource, function(item, index) {
     const groupKey = pickup(item);
     const result = groupMap.get(groupKey);
@@ -132,7 +118,7 @@ function countBy(dataSource, pickup) {
     const countKey = pickup(item);
     const result = groupMap.get(countKey);
     if (result === undefined) {
-      groupMap.set(countKey, 0);
+      groupMap.set(countKey, 1);
     } else {
       groupMap.set(countKey, result + 1);
     }
@@ -163,31 +149,20 @@ function pluck(objects, targetKey) {
 }
 
 /**
- * 接收一个最佳值的比较规则函数与一个数据源, 返回数据源中的最佳值
- * @return {object} 数据源中的最佳值
- * */
-function best(dataSource, fun) {
-  return reduce(dataSource, function(x, y) {
-    return fun(x, y) ? x : y;
-  });
-}
-
-/**
  * 将一个数据源迭代归结为一个单一的值
- * @param {object} dataSource 数据源
+ * @param {object} data 数据源
  * @param {function} iterator 迭代函数
  * @param {object} memo 传递给迭代函数的初始值
  * @param {object} context 上下文绑定
  * */
-function reduce(dataSource, iterator, memo, context) {
-  if (isArray(dataSource) === false || isFunction(iterator) === false) {
-    return 0;
-  }
+function reduce(data, iterator, memo, context) {
   let iterativeValue = memo;
+  const dataSource = duplicate(data);
   if (exist(iterativeValue) === false) {
     iterativeValue = dataSource[0];
     dataSource.splice({ startIndex: 0 }.startIndex, { delLen: 1 }.delLen);
   }
+  
   each(dataSource, function(data, index) {
     iterativeValue = iterator.call(
       context,
@@ -197,7 +172,18 @@ function reduce(dataSource, iterator, memo, context) {
       dataSource
     );
   });
+
   return iterativeValue;
+}
+
+/**
+ * 接收一个最佳值的比较规则函数与一个数据源, 返回数据源中的最佳值
+ * @return {object} 数据源中的最佳值
+ * */
+function best(dataSource, fun) { 
+  return reduce(dataSource, function(x, y) {
+    return fun(x, y) ? x : y;
+  });
 }
 
 module.exports = {
@@ -210,5 +196,5 @@ module.exports = {
   countBy,
   pluck,
   best,
-  reduce,
+  reduce
 };

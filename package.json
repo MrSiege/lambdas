@@ -8,10 +8,14 @@
   "main": "./srouce/index.js",
   "types": "./index.d.ts",
   "scripts": {
+    "test": "npx jest --coverage",
     "run:gracefully": "gulp --submodule source",
     "build:gracefully": "gulp --production --submodule source",
     "run:docs": "gulp --submodule docs",
     "build:docs": "npx jsdoc -c jsdoc-config.json --readme README.md --package package.json -d docs"
+  },
+  "jest": {
+    "testRegex": "/test/.*.test.jsx?$"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
@@ -27,6 +31,7 @@
     "gulp-csso": "^3.0.1",
     "gulp-webpack": "^1.5.0",
     "html-webpack-plugin": "^3.2.0",
+    "jest": "^24.9.0",
     "jsdoc": "^3.6.3",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
