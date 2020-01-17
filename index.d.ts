@@ -371,7 +371,19 @@ export namespace G{
    * */
   function sortBy(dataSource: any[], pickup: (v: any) => number): any[];
 
+  /**
+   * 接受一组数组，将他们通过索引组合起来
+   * @param {array} args 数组
+   * @return {array} 数组
+   */
+  function zip(...args: [][]): any[];
 
+  /**
+   * zip 的逆版本
+   * @param {array} args 数组
+   * @return {array} 数组
+   */
+  function unzip(args): any[];
 
   // Collection namespace
 
