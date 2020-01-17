@@ -40,7 +40,19 @@ export function construct(elem: any, arr: any[]): any[];
  * */
 export function sortBy(dataSource: any[], pickup: (v: any) => number): any[];
 
+/**
+ * 接受一组数组，将他们通过索引组合起来
+ * @param {array} args 数组
+ * @return {array} 数组
+ */
+export function zip(...args: [][]): any[];
 
+/**
+ * zip 的逆版本
+ * @param {array} args 数组
+ * @return {array} 数组
+ */
+export function unzip(args): any[];
 
 // Collection namespace
 
@@ -51,7 +63,10 @@ export function sortBy(dataSource: any[], pickup: (v: any) => number): any[];
  * @param {function} pred 谓词函数
  * @return {boolean} 运算结果
  * */
-export function allOf(dataSource: any[] | object, pred: (v: any) => boolean): boolean;
+export function allOf(
+  dataSource: any[] | object,
+  pred: (v: any) => boolean
+): boolean;
 
 /**
  * 接收一个集合参数与一个谓词，当对于集合中有一个元素谓词函数返回 true 时，返回 true，否则返回 false
@@ -59,7 +74,10 @@ export function allOf(dataSource: any[] | object, pred: (v: any) => boolean): bo
  * @param {function} pred 谓词函数
  * @return {boolean} 运算结果
  * */
-export function anyOf(dataSource:any[] | object, pred: (v: any) => boolean): boolean;
+export function anyOf(
+  dataSource: any[] | object,
+  pred: (v: any) => boolean
+): boolean;
 
 /**
  * 接收一个数据源参数与谓词函数，返回该谓词为 true 时的所有元素
@@ -67,7 +85,10 @@ export function anyOf(dataSource:any[] | object, pred: (v: any) => boolean): boo
  * @param {function} pred 谓词函数
  * @return {object} 符合条件的元素
  * */
-export function filter(dataSource: any[] | object, pred: (v: any) => boolean): any[]; 
+export function filter(
+  dataSource: any[] | object,
+  pred: (v: any) => boolean
+): any[];
 
 /**
  * 接收一个数据源参数与谓词函数，返回该谓词为 true 时的第一个元素
@@ -75,14 +96,17 @@ export function filter(dataSource: any[] | object, pred: (v: any) => boolean): a
  * @param {function} pred 谓词函数
  * @return {object} 符合条件的第一个元素
  * */
-export function find(dataSource: any[] | object, pred: (v: any) => boolean): any;
+export function find(
+  dataSource: any[] | object,
+  pred: (v: any) => boolean
+): any;
 
 /**
  * 接收一个返回谓词的函数参数，返回一个反转谓词参数执行结果的参数(补集)
  * @param {function} pred 返回谓词的函数参数
  * @return {function} Inversion results function
  * */
-export function complement(pred: (v: any) => boolean): (v: any) => boolean; 
+export function complement(pred: (v: any) => boolean): (v: any) => boolean;
 
 /**
  * 接收一个数据源参数与函数，返回按照数据拾取函数返回数据进行分组的源数据
@@ -90,7 +114,10 @@ export function complement(pred: (v: any) => boolean): (v: any) => boolean;
  * @param {function} pickup 数据拾取函数
  * @return {object} 排序结果
  * */
-export function groupBy(dataSource: any[] | object, pickup: (v : any) => string): object;
+export function groupBy(
+  dataSource: any[] | object,
+  pickup: (v: any) => string
+): object;
 
 /**
  * 接收一个数据源参数与函数，返回按照的数据拾取函数返回数据进行统计数量的源数据
@@ -98,7 +125,10 @@ export function groupBy(dataSource: any[] | object, pickup: (v : any) => string)
  * @param {function} pickup 数据拾取函数
  * @return {object} 排序结果
  * */
-export function countBy(dataSource: any[] | object, pickup: (v: any) => string): object;
+export function countBy(
+  dataSource: any[] | object,
+  pickup: (v: any) => string
+): object;
 
 /**
  * 获取一个对象数组指定键的值
@@ -125,18 +155,16 @@ export function best(dataSource: any[] | object, fun: (v: any) => boolean): any;
  * @return {object} 结果
  * */
 export function reduce(
-  dataSource: any[] | object, 
+  dataSource: any[] | object,
   iterator: (
-    iterativeValue: any, 
-    data: any, 
-    index: number, 
+    iterativeValue: any,
+    data: any,
+    index: number,
     dataSource: any[] | object
-  ) => any, 
-  memo: any, 
+  ) => any,
+  memo: any,
   context: any
 ): any;
-
-
 
 // Function namespace
 
@@ -145,7 +173,9 @@ export function reduce(
  * @param {function} pred 返回谓词的函数参数
  * @return {function} 比较函数
  * */
-export function comparator(pred: (x: any, y: any) => any): (x: any, y: any) => number;
+export function comparator(
+  pred: (x: any, y: any) => any
+): (x: any, y: any) => number;
 
 /**
  * 返回一个常量的函数
@@ -161,14 +191,20 @@ export function always(value: any): () => any;
  * @param {function} init 值的初始化函数
  * @return {array} result 结果
  * */
-export function iterateUntil(feedForward: (value: any, index: number) => boolean, init: () => any): any[];
+export function iterateUntil(
+  feedForward: (value: any, index: number) => boolean,
+  init: () => any
+): any[];
 
 /**
  * 接收一个函数及一些额外的参数，并返回一个只是调用给定的原始函数的函数
  * @param {function} fun 原始函数
  * @return {function}　经过包装的原始函数
  * */
-export function fnull(fun: (...args: any) => any, ...args: any): (...args: any) => any;
+export function fnull(
+  fun: (...args: any) => any,
+  ...args: any
+): (...args: any) => any;
 
 /**
  * 创建一个验证器
@@ -177,11 +213,14 @@ export function fnull(fun: (...args: any) => any, ...args: any): (...args: any) 
  * @return {function} 验证器函数
  * */
 
-interface validator{
+interface validator {
   (message: string, fun: (...args: any) => boolean): (...args: any) => boolean;
 }
 
-export function validator(message: string, fun: (...args: any) => boolean): (...args: any) => boolean;
+export function validator(
+  message: string,
+  fun: (...args: any) => boolean
+): (...args: any) => boolean;
 
 /**
  * 接收一组谓词函数，返回一个验证函数。返回的验证函数在给定对象上执行每个谓词，
@@ -189,9 +228,9 @@ export function validator(message: string, fun: (...args: any) => boolean): (...
  * 如果所有的谓词返回 true, 那么最终返回的结果是一个空数组。否则，结果为错误消息的数组。
  * @return {function} 聚合了谓词函数的验证函数
  * */
-export function checker(...validators: validator[]): (targetValidationData: any) => any;
-
-
+export function checker(
+  ...validators: validator[]
+): (targetValidationData: any) => any;
 
 // Lang namespace
 
@@ -271,9 +310,7 @@ export function doWhen(condition: any, action: () => any): any;
  * @param {object} sourceObject 源对象
  * @return {object} 新对象
  * */
-export function duplicate(sourceObject: any) : any;
-
-
+export function duplicate(sourceObject: any): any;
 
 // Object namespace
 
@@ -289,9 +326,7 @@ export function keys(object: object): string[];
  * @param {object} object 目标对象
  * @return {array} 对象所有值的数组
  * */
-export function values(object: object): any[]; 
-
-
+export function values(object: object): any[];
 
 // Utils namespace
 
@@ -328,7 +363,7 @@ export function warning(thing: string): void;
  * */
 export function note(...args: string[]): void;
 
-export namespace G{
+export namespace G {
   // Array namespace
 
   /**
@@ -394,7 +429,10 @@ export namespace G{
    * @param {function} pred 谓词函数
    * @return {boolean} 运算结果
    * */
-  function allOf(dataSource: any[] | object, pred: (v: any) => boolean): boolean;
+  function allOf(
+    dataSource: any[] | object,
+    pred: (v: any) => boolean
+  ): boolean;
 
   /**
    * 接收一个集合参数与一个谓词，当对于集合中有一个元素谓词函数返回 true 时，返回 true，否则返回 false
@@ -402,7 +440,10 @@ export namespace G{
    * @param {function} pred 谓词函数
    * @return {boolean} 运算结果
    * */
-  function anyOf(dataSource:any[] | object, pred: (v: any) => boolean): boolean;
+  function anyOf(
+    dataSource: any[] | object,
+    pred: (v: any) => boolean
+  ): boolean;
 
   /**
    * 接收一个数据源参数与谓词函数，返回该谓词为 true 时的所有元素
@@ -410,7 +451,7 @@ export namespace G{
    * @param {function} pred 谓词函数
    * @return {object} 符合条件的元素
    * */
-  function filter(dataSource: any[] | object, pred: (v: any) => boolean): any[]; 
+  function filter(dataSource: any[] | object, pred: (v: any) => boolean): any[];
 
   /**
    * 接收一个数据源参数与谓词函数，返回该谓词为 true 时的第一个元素
@@ -425,7 +466,7 @@ export namespace G{
    * @param {function} pred 返回谓词的函数参数
    * @return {function} Inversion results function
    * */
-  function complement(pred: (v: any) => boolean): (v: any) => boolean; 
+  function complement(pred: (v: any) => boolean): (v: any) => boolean;
 
   /**
    * 接收一个数据源参数与函数，返回按照数据拾取函数返回数据进行分组的源数据
@@ -433,7 +474,10 @@ export namespace G{
    * @param {function} pickup 数据拾取函数
    * @return {object} 排序结果
    * */
-  function groupBy(dataSource: any[] | object, pickup: (v : any) => string): object;
+  function groupBy(
+    dataSource: any[] | object,
+    pickup: (v: any) => string
+  ): object;
 
   /**
    * 接收一个数据源参数与函数，返回按照的数据拾取函数返回数据进行统计数量的源数据
@@ -441,7 +485,10 @@ export namespace G{
    * @param {function} pickup 数据拾取函数
    * @return {object} 排序结果
    * */
-  function countBy(dataSource: any[] | object, pickup: (v: any) => string): object;
+  function countBy(
+    dataSource: any[] | object,
+    pickup: (v: any) => string
+  ): object;
 
   /**
    * 获取一个对象数组指定键的值
@@ -468,18 +515,16 @@ export namespace G{
    * @return {object} 结果
    * */
   function reduce(
-    dataSource: any[] | object, 
+    dataSource: any[] | object,
     iterator: (
-      iterativeValue: any, 
-      data: any, 
-      index: number, 
+      iterativeValue: any,
+      data: any,
+      index: number,
       dataSource: any[] | object
-    ) => any, 
-    memo: any, 
+    ) => any,
+    memo: any,
     context: any
   ): any;
-
-
 
   // Function namespace
 
@@ -488,7 +533,9 @@ export namespace G{
    * @param {function} pred 返回谓词的函数参数
    * @return {function} 比较函数
    * */
-  function comparator(pred: (x: any, y: any) => any): (x: any, y: any) => number;
+  function comparator(
+    pred: (x: any, y: any) => any
+  ): (x: any, y: any) => number;
 
   /**
    * 返回一个常量的函数
@@ -504,14 +551,20 @@ export namespace G{
    * @param {function} init 值的初始化函数
    * @return {array} result 结果
    * */
-  function iterateUntil(feedForward: (value: any, index: number) => boolean, init: () => any): any[];
+  function iterateUntil(
+    feedForward: (value: any, index: number) => boolean,
+    init: () => any
+  ): any[];
 
   /**
    * 接收一个函数及一些额外的参数，并返回一个只是调用给定的原始函数的函数
    * @param {function} fun 原始函数
    * @return {function}　经过包装的原始函数
    * */
-  function fnull(fun: (...args: any) => any, ...args: any): (...args: any) => any;
+  function fnull(
+    fun: (...args: any) => any,
+    ...args: any
+  ): (...args: any) => any;
 
   /**
    * 创建一个验证器
@@ -520,11 +573,16 @@ export namespace G{
    * @return {function} 验证器函数
    * */
 
-  interface validator{
-    (message: string, fun: (...args: any) => boolean): (...args: any) => boolean;
+  interface validator {
+    (message: string, fun: (...args: any) => boolean): (
+      ...args: any
+    ) => boolean;
   }
 
-  function validator(message: string, fun: (...args: any) => boolean): (...args: any) => boolean;
+  function validator(
+    message: string,
+    fun: (...args: any) => boolean
+  ): (...args: any) => boolean;
 
   /**
    * 接收一组谓词函数，返回一个验证函数。返回的验证函数在给定对象上执行每个谓词，
@@ -532,9 +590,9 @@ export namespace G{
    * 如果所有的谓词返回 true, 那么最终返回的结果是一个空数组。否则，结果为错误消息的数组。
    * @return {function} 聚合了谓词函数的验证函数
    * */
-  function checker(...validators: validator[]): (targetValidationData: any) => any;
-
-
+  function checker(
+    ...validators: validator[]
+  ): (targetValidationData: any) => any;
 
   // Lang namespace
 
@@ -614,9 +672,7 @@ export namespace G{
    * @param {object} sourceObject 源对象
    * @return {object} 新对象
    * */
-  function duplicate(sourceObject: any) : any;
-
-
+  function duplicate(sourceObject: any): any;
 
   // Object namespace
 
@@ -632,9 +688,7 @@ export namespace G{
    * @param {object} object 目标对象
    * @return {array} 对象所有值的数组
    * */
-  function values(object: object): any[]; 
-
-
+  function values(object: object): any[];
 
   // Utils namespace
 
