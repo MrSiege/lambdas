@@ -45,14 +45,14 @@ export function sortBy(dataSource: any[], pickup: (v: any) => number): any[];
  * @param {array} args 数组
  * @return {array} 数组
  */
-export function zip(...args: [][]): any[];
+export function zip(...args: any[][]): any[][];
 
 /**
  * zip 的逆版本
  * @param {array} args 数组
  * @return {array} 数组
  */
-export function unzip(args): any[];
+export function unzip(args: any[][]): any[][];
 
 // Collection namespace
 
@@ -277,6 +277,13 @@ export function isArray(array: any): boolean;
 export function isFunction(func: any): boolean;
 
 /**
+ * 判断传递进来的参数是否为 object 类型
+ * @param {object} object 参数
+ * @return {boolean} 参数是否为对象类型的数据
+ * */
+export function isObject(obj: any): boolean;
+
+/**
  * 判断传递进来的参数是否是支持数字索引的
  * @param {object} data 参数
  * @return {boolean} 参数是否为 Array 类型
@@ -411,14 +418,14 @@ export namespace G {
    * @param {array} args 数组
    * @return {array} 数组
    */
-  function zip(...args: [][]): any[];
+  function zip(...args: any[][]): any[][];
 
   /**
    * zip 的逆版本
    * @param {array} args 数组
    * @return {array} 数组
    */
-  function unzip(args): any[];
+  function unzip(args: any[][]): any[][];
 
   // Collection namespace
 
@@ -637,6 +644,13 @@ export namespace G {
    * @return {boolean} 参数是否为函数类型的数据
    * */
   function isFunction(func: any): boolean;
+
+  /**
+   * 判断传递进来的参数是否为 object 类型
+   * @param {object} object 参数
+   * @return {boolean} 参数是否为对象类型的数据
+   * */
+  function isObject(obj: any): boolean;
 
   /**
    * 判断传递进来的参数是否是支持数字索引的
