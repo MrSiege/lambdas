@@ -1,5 +1,6 @@
-const { truest, toArray } = require('./lang');
+const { truest, toArray, exist } = require('./lang');
 const { map } = require('./array');
+const { reduce } = require('./collection');
 
 /**
  * 接收一个返回谓词的函数参数，返回一个根据参数数据返回 -1 | 0 | 1 格式的函数
@@ -20,7 +21,7 @@ function comparator(pred) {
 
 /**
  * 返回一个常量的函数
- * TODO 这种返回一个常量的函数非常有用，几乎是函数式编程的一个设计模式，经常被简称为 K.
+ * TODO: 函数组合子K.
  * @param {object} value 定义需要返回的常量
  * @return {object} 常量的值
  * */
@@ -62,6 +63,21 @@ function fnull(fun) {
 }
 
 /**
+ * 创建一个验证器
+ * @param {string} message 验证失败后的错误消息
+ * @param {function} fun 一套验证规则
+ * @return {function} 验证器函数
+ * */
+function validator(message, fun) {
+  const f = function() {
+    return fun.apply(fun, arguments);
+  };
+  
+  f["message"] = message;
+  return f;
+}
+
+/**
  * 接收一组谓词函数，返回一个验证函数。返回的验证函数在给定对象上执行每个谓词，
  * 并对每一个返回 false 的谓词增加一个特殊的错误字符到一个数组中。
  * 如果所有的谓词返回 true, 那么最终返回的结果是一个空数组。否则，结果为错误消息的数组。
@@ -84,21 +100,6 @@ function checker() {
       errors
     );
   };
-}
-
-/**
- * 创建一个验证器
- * @param {string} message 验证失败后的错误消息
- * @param {function} fun 一套验证规则
- * @return {function} 验证器函数
- * */
-function validator(message, fun) {
-  const f = function() {
-    return fun.apply(fun, arguments);
-  };
-  
-  f["message"] = message;
-  return f;
 }
 
 /**

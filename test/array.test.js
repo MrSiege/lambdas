@@ -47,3 +47,12 @@ test('arrays.zip', () => {
   
   expect(result).toEqual([['1', '1'], ['2']]);
 });
+
+test('arrays.unzip', () => {
+  const datasrouce1 = ['1', '3', '4'];
+  const datasrouce2 = ['1', '2'];
+  const result1 = arrays.zip(datasrouce1, datasrouce2);
+  const result2 = arrays.unzip(result1);
+  
+  expect(result2).toEqual([datasrouce1, datasrouce2]);
+});

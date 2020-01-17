@@ -1,11 +1,4 @@
-/**
- * 接收一个源数据，将其转换为数组返回
- * @param {object} dataSource 源数据
- * @return {array} 转换后的结果
- * */
-function toArray(dataSource) {
-  return [...dataSource];
-}
+const { values } = require('./object');
 
 /**
  * 判断传递进来的参数是否是字符串数据类型
@@ -53,6 +46,15 @@ function isFunction(func) {
 }
 
 /**
+ * 判断传递进来的参数是否为 object 类型
+ * @param {object} object 参数
+ * @return {boolean} 参数是否为函数类型的数据
+ * */
+function isObject(obj) {
+  return exist(obj) && typeof obj === "object";
+}
+
+/**
  * 判断传递进来的参数是否是支持数字索引的
  * @param {object} data 参数
  * @return {boolean} 参数是否为 Array 类型
@@ -81,6 +83,19 @@ function truest(x) {
 }
 
 /**
+ * 接收一个源数据，将其转换为数组返回
+ * @param {object} dataSource 源数据
+ * @return {array} 转换后的结果
+ * */
+function toArray(dataSource) {
+  if(isObject(dataSource)){
+    return values(dataSource);
+  }
+  
+  return [...dataSource];
+}
+
+/**
  * 根据第一个谓词参数执行第二个函数参数并返回结果
  * @param {object} condition 谓词参数
  * @param {function} action 函数参数
@@ -102,14 +117,6 @@ function doWhen(condition, action) {
  * 在使用递归算法时应尽量避免深层递归，递归过深会耗尽系统栈的内存，造成栈溢出。
  * */
 function duplicate(sourceObject) {
-  //输出复制的值
-  // let showCharsLength = 60;
-  // let info =
-  //   sourceObject.toString().length < showCharsLength
-  //     ? sourceObject.toString()
-  //     : sourceObject.toString().substr(0, showCharsLength) + "...";
-
-  // console.log("[duplicate function] copy value ：%c" + info, "color:green");
   //粗颗粒度的判断类型
   switch (typeof sourceObject) {
     case "number":
@@ -163,6 +170,7 @@ module.exports = {
   isNaN,
   isArray,
   isFunction,
+  isObject,
   isIndexed,
   exist,
   truest,
