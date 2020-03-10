@@ -1,2 +1,2 @@
-const G = require('./source');
-module.exports = G;
+const lambdaλ = require('./source');
+module.exports = lambdaλ;

@@ -370,7 +370,7 @@ export function warning(thing: string): void;
  * */
 export function note(...args: string[]): void;
 
-export namespace G {
+export namespace lambdaλ {
   // Array namespace
 
   /**

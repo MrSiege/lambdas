@@ -6,7 +6,7 @@ const objects = require('./object');
 const utils = require('./utils');
 const dataStructures = require('./data-structure');
 
-const G = {
+const lambdaλ = {
   ...arrays,
   ...collections,
   ...functions,
@@ -16,4 +16,4 @@ const G = {
   ...dataStructures,
 }
 
-module.exports = G;
+module.exports = lambdaλ;
