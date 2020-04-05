@@ -1,4 +1,4 @@
-const functions = require('../source/function');
+import * as functions from '../source/function';
 
 test('function.comparator', () => {
   const comparator = functions.comparator((v, x) => v > x);

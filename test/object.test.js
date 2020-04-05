@@ -1,4 +1,4 @@
-const objects = require('../source/object');
+import * as objects from '../source/object';
 
 test('objects.keys', () => {
   const datasource = {title: 'One Hundred Years of Solitude', author: 'Márquez'};

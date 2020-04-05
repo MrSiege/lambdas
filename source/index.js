@@ -1,10 +1,10 @@
-const arrays = require('./array');
-const collections = require('./collection');
-const functions = require('./function');
-const langs = require('./lang');
-const objects = require('./object');
-const utils = require('./utils');
-const dataStructures = require('./data-structure');
+import * as arrays from './array';
+import * as collections from './collection';
+import * as functions from './function';
+import * as langs from './lang';
+import * as objects from './object';
+import * as utils from './utils';
+import * as dataStructures from './data.structure';
 
 const lambdaλ = {
   ...arrays,
@@ -16,4 +16,4 @@ const lambdaλ = {
   ...dataStructures,
 }
 
-module.exports = lambdaλ;
+export default lambdaλ;

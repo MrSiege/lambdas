@@ -1,4 +1,4 @@
-const langs = require('../source/lang');
+import * as langs from '../source/lang';
 
 test('langs.isString', () => {
   const result1 = langs.isString(1);
@@ -100,9 +100,9 @@ test('langs.doWhen', () => {
   expect(result3).toEqual('Congratulations on your admission');
 });
 
-test('langs.duplicate', () => {
+test('langs.clonedeep', () => {
   const datasource = { name: 'wei', title: 'Swordsman', age: '23', companion: 'kiko' };
-  const result1 = langs.duplicate(datasource);
+  const result1 = langs.clonedeep(datasource);
   const result2 = result1 === datasource;
   expect(result1).toEqual({ name: 'wei', title: 'Swordsman', age: '23', companion: 'kiko' });
   expect(result2).toEqual(false);

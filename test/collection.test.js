@@ -1,19 +1,19 @@
-const collections = require('../source/collection');
+import * as collections from '../source/collection';
 
-test('collections.allOf', () => {
+test('collections.allof', () => {
   const datasrouce1 = [true, false, true];
   const datasrouce2 = [{result: true}, {result: true}, {result: true}];
   
-  expect(collections.allOf(datasrouce1, v => v)).toEqual(false);
-  expect(collections.allOf(datasrouce2, v => v.result)).toEqual(true);
+  expect(collections.allof(datasrouce1, v => v)).toEqual(false);
+  expect(collections.allof(datasrouce2, v => v.result)).toEqual(true);
 });
 
-test('collections.anyOf', () => {
+test('collections.anyof', () => {
   const datasrouce1 = [true, false, true];
   const datasrouce2 = [{result: true}, {result: true}, {result: true}];
   
-  expect(collections.anyOf(datasrouce1, v => v)).toEqual(true);
-  expect(collections.anyOf(datasrouce2, v => v.result)).toEqual(true);
+  expect(collections.anyof(datasrouce1, v => v)).toEqual(true);
+  expect(collections.anyof(datasrouce2, v => v.result)).toEqual(true);
 });
 
 test('collections.filter', () => {

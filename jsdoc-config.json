@@ -4,7 +4,17 @@
     "dictionaries": ["jsdoc", "closure"]
   },
   "source": {
-    "include": ["source/"],
+    "include": [
+      "source/",
+      "source/array",
+      "source/collection",
+      "source/data.structure",
+      "source/function",
+      "source/lang",
+      "source/monad",
+      "source/object",
+      "source/utils"
+    ],
     "exclude": ["node_modules"],
     "includePattern": ".+\\.js(doc)?$",
     "excludePattern": "node_modules"
@@ -23,8 +33,8 @@
     "search": true,
     "wrap": true,
     "meta": {
-      "title": "gracefully",
-      "description": "javascript 函数式编程库"
+      "title": "lambdaλ",
+      "description": "lambdaλ 纯函数式编程库"
     }
   }
 } 

@@ -202,9 +202,9 @@ export function iterateUntil(
  * @return {function}　经过包装的原始函数
  * */
 export function fnull(
-  fun: (...args: any) => any,
-  ...args: any
-): (...args: any) => any;
+  fun: (...args: any[]) => any,
+  ...args: any[]
+): (...args: any[]) => any;
 
 /**
  * 创建一个验证器
@@ -214,13 +214,13 @@ export function fnull(
  * */
 
 interface validator {
-  (message: string, fun: (...args: any) => boolean): (...args: any) => boolean;
+  (message: string, fun: (...args: any[]) => boolean): (...args: any[]) => boolean;
 }
 
 export function validator(
   message: string,
-  fun: (...args: any) => boolean
-): (...args: any) => boolean;
+  fun: (...args: any[]) => boolean
+): (...args: any[]) => boolean;
 
 /**
  * 接收一组谓词函数，返回一个验证函数。返回的验证函数在给定对象上执行每个谓词，
@@ -341,7 +341,7 @@ export function values(object: object): any[];
  * 往 html 文档中写一行内容
  * @return {void}
  * */
-export function documentWriteln(...args: any): void;
+export function documentWriteln(...args: any[]): void;
 
 /**
  * 往 html 文档中写入内容
@@ -569,9 +569,9 @@ export namespace lambdaλ {
    * @return {function}　经过包装的原始函数
    * */
   function fnull(
-    fun: (...args: any) => any,
-    ...args: any
-  ): (...args: any) => any;
+    fun: (...args: any[]) => any,
+    ...args: any[]
+  ): (...args: any[]) => any;
 
   /**
    * 创建一个验证器
@@ -581,15 +581,15 @@ export namespace lambdaλ {
    * */
 
   interface validator {
-    (message: string, fun: (...args: any) => boolean): (
-      ...args: any
+    (message: string, fun: (...args: any[]) => boolean): (
+      ...args: any[]
     ) => boolean;
   }
 
   function validator(
     message: string,
-    fun: (...args: any) => boolean
-  ): (...args: any) => boolean;
+    fun: (...args: any[]) => boolean
+  ): (...args: any[]) => boolean;
 
   /**
    * 接收一组谓词函数，返回一个验证函数。返回的验证函数在给定对象上执行每个谓词，
@@ -710,7 +710,7 @@ export namespace lambdaλ {
    * 往 html 文档中写一行内容
    * @return {void}
    * */
-  function documentWriteln(...args: any): void;
+  function documentWriteln(...args: string[]): void;
 
   /**
    * 往 html 文档中写入内容

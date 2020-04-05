@@ -10,4 +10,4 @@ function each(dataSource, itemAction) {
   }
 }
 
-module.exports = { each };
+export default each;

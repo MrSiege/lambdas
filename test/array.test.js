@@ -1,4 +1,4 @@
-const arrays = require('../source/array');
+import * as arrays from '../source/array';
 
 test('arrays.nth', () => {
   const datasrouce = ['1', '2', '3'];
@@ -44,7 +44,7 @@ test('arrays.zip', () => {
   const datasrouce1 = ['1'];
   const datasrouce2 = ['1', '2'];
   const result = arrays.zip(datasrouce1, datasrouce2);
-  
+
   expect(result).toEqual([['1', '1'], ['2']]);
 });
 
