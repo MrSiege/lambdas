@@ -1,12 +1,19 @@
 {
   "name": "lambdas.js",
-  "author": "William Caulfield",
-  "license": "ISC",
+  "author": "William Caulfield <18371143179@163.com>",
+  "license": "MIT",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "description": "函数式编程库",
   "main": "./srouce/index.js",
   "types": "./index.d.ts",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:MrSiege/lambdas.git"
+  },
   "scripts": {
     "test": "npx jest --coverage",
     "build": "npx webpack",
