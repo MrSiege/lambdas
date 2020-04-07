@@ -1,4 +1,4 @@
-import uuid from 'uuid';
+import { default as uuid } from '../utils/utils.uuid';
 
 /**
  * 该类是 monad 函数范式顶层抽象
@@ -18,7 +18,7 @@ class Wrapper {
     });
 
     Object.defineProperty(this, '$hashcode', {
-      value: uuid.v4(),
+      value: uuid(),
       writable: false,
       enumerable: false,
     });
