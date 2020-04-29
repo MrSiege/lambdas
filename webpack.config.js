@@ -4,11 +4,11 @@ const webpack = require("webpack");
 module.exports = {
   mode: "production",
   entry: {
-    app: "./source/index.js"
+    lambdas: "./source/index.js"
   },
-  devtool: "inline-source-map",
+  devtool: "source-map",
   output: {
-    filename: "[name].js",
+    filename: "[name].min.js",
     publicPath: "",
     path: path.resolve(__dirname, "./build/")
   },

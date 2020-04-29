@@ -2,10 +2,10 @@
   "name": "lambdas",
   "author": "William Caulfield <18371143179@163.com>",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "private": false,
   "description": "函数式库",
-  "main": "./build/app.js",
+  "main": "./srouce/index.js",
   "module": "./srouce/index.js",
   "types": "./index.d.ts",
   "engines": {
@@ -16,7 +16,7 @@
     "url": "git@github.com:MrSiege/lambdas.git"
   },
   "scripts": {
-    "test": "npx jest --coverage",
+    "test": "npx jest --coverage --verbose",
     "build": "npx webpack",
     "build:docs": "npx jsdoc -c jsdoc-config.json --readme README.md --package package.json -d docs"
   },
@@ -33,11 +33,6 @@
     "docdash": "^1.1.1",
     "eslint": "^5.15.3",
     "eslint-config-airbnb": "^17.1.0",
-    "gulp": "^4.0.0",
-    "gulp-clean": "^0.4.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-csso": "^3.0.1",
-    "gulp-webpack": "^1.5.0",
     "jest": "^24.9.0",
     "jsdoc": "^3.6.3",
     "regenerator-runtime": "^0.13.5",
