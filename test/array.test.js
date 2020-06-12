@@ -15,6 +15,18 @@ describe('arrays', () => {
     expect(mockCallback.mock.calls.length).toEqual(datasrouce.length);
     expect(mockCallback.mock.calls[0][0]).toEqual(datasrouce[0]);
   });
+
+  test('arrays.formPairs', () => {
+    const data1 = [['name', '雯梓'], ['artifact', 'Go']];
+    const data2 = [['name', '张良'], ['title', 'Strategist'], ['artifact']];
+    const result1 = arrays.formPairs(data1);
+    const result2 = arrays.formPairs(data2);
+    const result3 = arrays.formPairs([]);
+    
+    expect(result1).toStrictEqual({ name: '雯梓', artifact: 'Go' });
+    expect(result2).toStrictEqual({ name: '张良', title: 'Strategist', artifact: undefined });
+    expect(result3).toStrictEqual({});
+  });
   
   test('arrays.map', () => {
     const datasrouce = ['1', '2', '3'];
@@ -32,6 +44,17 @@ describe('arrays', () => {
     const param = '0';
     
     expect(arrays.construct(param, datasrouce)).toEqual([param, ...datasrouce]);
+  });
+
+  test('arrays.reverse', () => {
+    const data1 = [1, 2, 3];
+    const data2 = [3, 2, 1];
+    
+    const result1 = arrays.reverse(data1);
+    const result2 = arrays.reverse(data2);
+
+    expect(result1).toStrictEqual(data2);
+    expect(result2).toStrictEqual(data1);
   });
   
   test('arrays.sortBy', () => {

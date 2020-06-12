@@ -2,6 +2,7 @@ export { default as clonedeep } from './lang.clonedeep';
 export { default as doWhen } from './lang.doWhen';
 export { default as exist } from './lang.exist';
 export { default as isArray } from './lang.isArray';
+export { default as isDate } from './lang.isDate';
 export { default as isFunction } from './lang.isFunction';
 export { default as isIndexed } from './lang.isIndexed';
 export { default as isNaN } from './lang.isNaN';

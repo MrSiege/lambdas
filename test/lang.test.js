@@ -32,6 +32,16 @@ describe('langs', () => {
     expect(result1).toEqual(false);
     expect(result2).toEqual(true);
   });
+
+  test('langs.isDate', () => {
+    const data1 = new Date();
+    const data2 = '2030-03-23';
+    const result1 = langs.isDate(data1);
+    const result2 = langs.isDate(data2);
+
+    expect(result1).toBe(true);
+    expect(result2).toBe(false);
+  });
   
   test('langs.isFunction', () => {
     const result1 = langs.isFunction(() => null);

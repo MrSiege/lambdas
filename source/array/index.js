@@ -1,7 +1,9 @@
-export { default as nth } from './array.nth';
-export { default as map } from './array.map';
-export { default as sortBy } from './array.sortBy';
 export { default as construct } from './array.construct';
+export { default as each } from './array.each';
+export { default as formPairs } from './array.formPairs';
+export { default as map } from './array.map';
+export { default as nth } from './array.nth';
+export { default as reverse } from './array.reverse';
+export { default as sortBy } from './array.sortBy';
 export { default as zip } from './array.zip';
 export { default as unzip } from './array.unzip';
-export { default as each } from './array.each';

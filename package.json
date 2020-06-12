@@ -4,7 +4,7 @@
   "license": "MIT",
   "version": "0.0.1",
   "private": false,
-  "description": "函数式库",
+  "description": "函数式范例文档",
   "main": "./srouce/index.js",
   "module": "./srouce/index.js",
   "types": "./index.d.ts",

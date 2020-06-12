@@ -71,4 +71,14 @@ describe('collections', () => {
     
     expect(result).toEqual({name: 'kiko'});
   });
+
+  test('collections.head and collections.tail', () => {
+    const array = [1, 2, 3];
+    const head = collections.head(array);
+    const tail = collections.tail(array);
+
+    expect(head).toBe(1);
+    expect(tail).toStrictEqual([2, 3]);
+    expect(array).toStrictEqual([1, 2, 3]);
+  });
 })
