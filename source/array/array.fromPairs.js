@@ -4,10 +4,10 @@
  * @return 对象
  */
 
-function formPairs(list) {
+function fromPairs(list) {
   const result = {};
   list.map(([k, v]) => result[k] = v);
   return result;
 }
 
-export default formPairs;
+export default fromPairs;

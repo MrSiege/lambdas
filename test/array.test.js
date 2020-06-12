@@ -16,12 +16,12 @@ describe('arrays', () => {
     expect(mockCallback.mock.calls[0][0]).toEqual(datasrouce[0]);
   });
 
-  test('arrays.formPairs', () => {
+  test('arrays.fromPairs', () => {
     const data1 = [['name', '雯梓'], ['artifact', 'Go']];
     const data2 = [['name', '张良'], ['title', 'Strategist'], ['artifact']];
-    const result1 = arrays.formPairs(data1);
-    const result2 = arrays.formPairs(data2);
-    const result3 = arrays.formPairs([]);
+    const result1 = arrays.fromPairs(data1);
+    const result2 = arrays.fromPairs(data2);
+    const result3 = arrays.fromPairs([]);
     
     expect(result1).toStrictEqual({ name: '雯梓', artifact: 'Go' });
     expect(result2).toStrictEqual({ name: '张良', title: 'Strategist', artifact: undefined });
