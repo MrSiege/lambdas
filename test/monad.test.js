@@ -3,10 +3,10 @@ import * as monads from '../source/monad';
 describe('monad', () => {
   test('monad.maybe', () => {
     const obj = { a: { b: { c: 'piano' } } };
-    const result1 = monads.maybe.of(obj);
-    const result2 = monads.maybe.of(null);
-    const result3 = monads.maybe.of(obj).map(v => v.a).map(v => v.b).map(v => v.c).getOrElse();
-    const result4 = monads.maybe.of(obj).map(v => v.a).map(v => v.b).map(v => v.d).getOrElse('clavichord');
+    const result1 = monads.Maybe.of(obj);
+    const result2 = monads.Maybe.of(null);
+    const result3 = monads.Maybe.of(obj).map(v => v.a).map(v => v.b).map(v => v.c).getOrElse();
+    const result4 = monads.Maybe.of(obj).map(v => v.a).map(v => v.b).map(v => v.d).getOrElse('clavichord');
 
     expect(result1.toString()).toMatch('Wrapper monad');
     expect(result1.isWrapperJust).toEqual(true);

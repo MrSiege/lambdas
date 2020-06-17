@@ -1,1 +1,1 @@
-export { default as maybe } from './wrapper.maybe';
+export { default as Maybe } from './wrapper.maybe';

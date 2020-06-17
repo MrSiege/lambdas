@@ -19,7 +19,7 @@ describe('utils', () => {
     
     const datasource1 = { name: 'wei', sex: 'boy', graduatedSchool: 'Cambridge University' };
     const datasource2 = { name: 'kiko', sex: 'girl', graduatedSchool: 'Kyoto University' };
-    const datasource3 = { name: 'Voldemort', sex: 'male', graduatedSchool: 'Hogwarts University' };
+    const datasource3 = { name: 'Luna', sex: 'female', graduatedSchool: 'Hogwarts Ravenclaw University' };
     
     const result1 = checkers(datasource1);
     const result2 = checkers(datasource2);
