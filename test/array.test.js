@@ -5,7 +5,7 @@ describe('arrays', () => {
     const datasrouce = ['1', '2', '3'];
     
     expect(arrays.nth(datasrouce, 2)).toEqual(datasrouce[2]);
-  });
+  })
   
   test('arrays.each', () => {
     const datasrouce = ['1', '2', '3'];
@@ -14,7 +14,7 @@ describe('arrays', () => {
     
     expect(mockCallback.mock.calls.length).toEqual(datasrouce.length);
     expect(mockCallback.mock.calls[0][0]).toEqual(datasrouce[0]);
-  });
+  })
 
   test('arrays.fromPairs', () => {
     const data1 = [['name', '雯梓'], ['artifact', 'Go']];
@@ -26,7 +26,7 @@ describe('arrays', () => {
     expect(result1).toStrictEqual({ name: '雯梓', artifact: 'Go' });
     expect(result2).toStrictEqual({ name: '张良', title: 'Strategist', artifact: undefined });
     expect(result3).toStrictEqual({});
-  });
+  })
   
   test('arrays.map', () => {
     const datasrouce = ['1', '2', '3'];
@@ -37,14 +37,14 @@ describe('arrays', () => {
     expect(mockCallback.mock.calls.length).toEqual(datasrouce.length);
     expect(mockCallback.mock.calls[0][0]).toEqual(datasrouce[0]);
     expect(result).toEqual(datasrouce);
-  });
+  })
   
   test('arrays.construct', () => {
     const datasrouce = ['1', '2', '3'];
     const param = '0';
     
     expect(arrays.construct(param, datasrouce)).toEqual([param, ...datasrouce]);
-  });
+  })
 
   test('arrays.reverse', () => {
     const data1 = [1, 2, 3];
@@ -55,14 +55,14 @@ describe('arrays', () => {
 
     expect(result1).toStrictEqual(data2);
     expect(result2).toStrictEqual(data1);
-  });
+  })
   
   test('arrays.sortBy', () => {
     const datasrouce = ['4', '2', '3'];
     const result = arrays.sortBy(datasrouce, v => v);
     
     expect(result).toEqual(['2', '3', '4']);
-  });
+  })
   
   test('arrays.zip', () => {
     const datasrouce1 = ['1'];
@@ -70,7 +70,7 @@ describe('arrays', () => {
     const result = arrays.zip(datasrouce1, datasrouce2);
   
     expect(result).toEqual([['1', '1'], ['2']]);
-  });
+  })
   
   test('arrays.unzip', () => {
     const datasrouce1 = ['1', '3', '4'];
@@ -79,5 +79,5 @@ describe('arrays', () => {
     const result2 = arrays.unzip(result1);
     
     expect(result2).toEqual([datasrouce1, datasrouce2]);
-  });
+  })
 })
