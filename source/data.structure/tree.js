@@ -1,4 +1,6 @@
-import { identity } from '../../source/combinators';
+import { identity } from '../combinators';
+import { map } from '../array';
+import { compose } from '../function';
 
 class Tree {
   constructor(data = {}, children = []){
@@ -36,6 +38,37 @@ class Tree {
     if(f(this.data)) return this;
     return this.children.map(v => v.find(f)).find(identity);
   }
+
+  /**
+   * 查找某个叶子节点的父节点
+   * @param {function} f 查找函数
+   * @return {object} 查找结果
+   */
+  // findParent = (function(){
+  //   const stack = [];
+
+  //   const find = function (node, f) {
+  //     stack.push(node);
+  //     const { children = [] } = node;
+  //     if(children.find(f)) return stack.pop();
+
+  //     // return compose(
+  //     //   v => map(v, a => find(a, f)),
+  //     // )
+  //     // return (
+  //     //   chain(children)
+  //     //   .map(v => find(v, f))
+  //     //   .flattenDeep()
+  //     //   .find(identity)
+  //     //   .value()
+  //     // );
+  //   }
+
+  //   return function (f) {
+  //     stack.splice(0);
+  //     return find(this, f);
+  //   }
+  // })()
 }
 
 export default Tree;

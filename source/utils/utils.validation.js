@@ -35,14 +35,17 @@ validation.test = function test(message, func){
  * @return {function} 效验函数
  */
 validation.notify = function notify(func, validationResults){
-  if(!isArray(validationResults) && !validationResults.result) {
+  if(isArray(validationResults)){
+    const results = validationResults.filter(v => v.result === false);
+    if(results.length) func(results[0].messages[0]);
+  }
+  
+  else if (validationResults.result === false){
     func(validationResults.messages[0]);
     return validation;
-  } else {
-    const results = validationResults.filter(v => !v.result);
-    if(results.length) func(results[0].messages[0]);
-    return validation;
   }
+
+  return validation;
 };
 
 export default validation;

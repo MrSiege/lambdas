@@ -9,9 +9,8 @@ function curry(f, a) {
 
   const tunk = (...args) => {
     args.map(v => params.push(v));
-    if(params.length >= a)
-      return f(...params);
-    return tunk;
+    if(params.length >= a) return f(...params);
+    else return tunk;
   }
 
   return tunk;

@@ -16,6 +16,26 @@ describe('arrays', () => {
     expect(mockCallback.mock.calls[0][0]).toEqual(datasrouce[0]);
   })
 
+  test('arrays.flatten', () => {
+    const result1 = arrays.flatten(['1', ['2', '3'], ['4', '5', '6']]);
+    const result2 = arrays.flatten(['1', '2', '3', '4', '5', '6']);
+    const result3 = arrays.flatten([['1', '2', '3', '4', '5', '6']]);
+    
+    expect(result1).toStrictEqual(['1', '2', '3', '4', '5', '6']);
+    expect(result2).toStrictEqual(['1', '2', '3', '4', '5', '6']);
+    expect(result3).toStrictEqual(['1', '2', '3', '4', '5', '6']);
+  })
+
+  test('arrays.flattenDeep', () => {
+    const result1 = arrays.flattenDeep(['1', ['2', ['3']], ['4', ['5', ['6']]]]);
+    const result2 = arrays.flattenDeep(['1', '2', [['3', ['4']]], '5', '6']);
+    const result3 = arrays.flattenDeep([['1', '2', '3', '4', '5', '6']]);
+    
+    expect(result1).toStrictEqual(['1', '2', '3', '4', '5', '6']);
+    expect(result2).toStrictEqual(['1', '2', '3', '4', '5', '6']);
+    expect(result3).toStrictEqual(['1', '2', '3', '4', '5', '6']);
+  })
+
   test('arrays.fromPairs', () => {
     const data1 = [['name', '雯梓'], ['artifact', 'Go']];
     const data2 = [['name', '张良'], ['title', 'Strategist'], ['artifact']];
