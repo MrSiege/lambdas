@@ -4,7 +4,8 @@ import { compose } from '../function';
 
 class Tree {
   constructor(data = {}, children = []){
-    Object.assign(this, { data, children });
+    this.data = data;
+    this.children = children;
   }
 
   /**
