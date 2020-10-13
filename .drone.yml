@@ -1,0 +1,21 @@
+kind: pipeline
+type: docker
+name: default
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+  name: checkout
+  image: alpine/git
+  commands:
+    git checkout dev-v1.0
+
+  name: build
+  image: node:13.14.0-alpine3.10
+  commands:
+    cd ./frontend
+    npm run test
+    npm run build
+    npm run build:docs
