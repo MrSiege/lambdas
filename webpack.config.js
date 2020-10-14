@@ -59,10 +59,6 @@ module.exports = {
         }
       }
     }),
-    // new webpack.SourceMapDevToolPlugin({
-    //   filename: "[name].min.js.map",
-    //   exclude: ["*.js"]
-    // }),
     new webpack.optimize.MinChunkSizePlugin({
       minChunkSize: 10000
     })

@@ -9,6 +9,7 @@ describe('data.structure Tree', () => {
     const node4 = Tree.of({ title: '童话' });
     const node5 = Tree.of({ title: '文学' }, [node1, node2, node3, node4]);
 
+    node5.map(v => console.log('tree -> ', v.title));
     expect(node1.data.title).toEqual('诗歌');
     expect(node1.children).toEqual([]);
     expect(node5.data.title).toEqual('文学');
@@ -70,6 +71,7 @@ describe('data.structure Tree', () => {
     const result3 = tree.find(v => v.title === '琴萧');
     const result4 = tree.find(v => v.title === '小提琴');
     
+    tree.map(v => console.log('tree -> ', v.title));
     expect(result1.data.title).toEqual('乐器');
     expect(result2.data.title).toEqual('古钢琴');
     expect(result3.data.title).toEqual('琴萧');

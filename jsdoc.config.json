@@ -23,7 +23,12 @@
     "plugins/markdown"
   ],
   "opts": {
-    "template": "node_modules/docdash"
+    "template": "node_modules/docdash",
+    "readme": "README.md",
+    "package": "package.json",
+    "destination": "docs",
+    "encoding": "utf8",
+    "verbose": true
   },
   "templates": {
     "cleverLinks": false,

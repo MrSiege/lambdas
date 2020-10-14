@@ -10,6 +10,7 @@ steps:
 - name: build
   image: node:13.14.0-alpine3.10
   commands:
+    - npm install
     - npm run test
+    - npm run docs
     - npm run build
-    - npm run build:docs
