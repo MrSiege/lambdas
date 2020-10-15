@@ -3,5 +3,5 @@ module.exports = {
   testRegex: "/test/.*.test.jsx?$",
   testEnvironment: "jsdom",
   verbose: true,
-  coverage: true,
+  collectCoverage: true,
 };
