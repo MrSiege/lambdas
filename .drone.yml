@@ -7,10 +7,37 @@ platform:
   arch: amd64
 
 steps:
-- name: build
+- name: install
   image: node:13.14.0-alpine3.10
   commands:
     - npm install
+
+- name: test
+  image: node:13.14.0-alpine3.10
+  commands:
     - npm run test
+
+- name: build
+  image: node:13.14.0-alpine3.10
+  commands:
     - npm run docs
     - npm run build
+
+- name: publish
+  image: appleboy/drone-scp
+  settings:
+    host: 
+      from_secret: hostname
+    username: 
+      from_secret: username
+    password: 
+      from_secret: password
+    port: 22
+    target: 
+      - /var/www/lambdas/docs
+      - /var/www/lambdas/dist
+      - /var/www/lambdas/test-coverage
+    source: 
+      - docs
+      - build
+      - coverage
