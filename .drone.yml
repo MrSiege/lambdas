@@ -8,17 +8,17 @@ platform:
 
 steps:
 - name: install
-  image: node:slim
+  image: node:alpine
   commands:
     - npm install
 
 - name: test
-  image: node:slim
+  image: node:alpine
   commands:
     - npm run test
 
 - name: dist
-  image: node:slim
+  image: node:alpine
   commands:
     - npm run docs
     - npm run dist
