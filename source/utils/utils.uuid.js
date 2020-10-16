@@ -5,7 +5,7 @@ import { iterateUntil } from '../function';
  * @return {string} uuid
  * */
 function uuid() {
-  const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+  const chars = '0123456789abcdefghijklmnopqrstuvwxyz'.split('');
   const radix = chars.length;  // 基数
   
   const pieces = [8, 4, 4, 4, 12]; // 标准 uuid 分片格式

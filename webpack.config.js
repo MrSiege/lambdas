@@ -1,15 +1,15 @@
 const path = require("path");
 const webpack = require("webpack");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   mode: "production",
-  entry: {
-    lambdas: "./source/index.js"
-  },
   devtool: "source-map",
+  stats: 'normal',
+  entry: { lambdas: "./source/index.js" },
   output: {
-    filename: "[name].min.js",
     publicPath: "",
+    filename: "[name].[hash].min.js",
     path: path.resolve(__dirname, "./dist/")
   },
   module: {
@@ -22,45 +22,13 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: "babel-loader",
-            options: {
-              presets: ["@babel/preset-env"]
-            }
-          }
-        ]
+        use: ['babel-loader'],
       }
     ]
   },
   plugins: [
-    new webpack.optimize.SplitChunksPlugin({
-      name: "vendor",
-      chunks: "all",
-      cacheGroups: {
-        default: {
-          minChunks: 2,
-          priority: -20,
-          reuseExistingChunk: true
-        },
-        //打包重复出现的代码
-        vendor: {
-          chunks: "initial",
-          minChunks: 2,
-          maxInitialRequests: 5, // The default limit is too small to showcase the effect
-          minSize: 0, // This is example is too small to create commons chunks
-          name: "vendor"
-        },
-        //打包第三方类库
-        commons: {
-          name: "commons",
-          chunks: "initial",
-          minChunks: Infinity
-        }
-      }
-    }),
-    new webpack.optimize.MinChunkSizePlugin({
-      minChunkSize: 10000
-    })
+    new webpack.optimize.SplitChunksPlugin({name: "commons", filename: "commons.js"}),
+    new webpack.optimize.MinChunkSizePlugin({minChunkSize: 1000}),
+    new CleanWebpackPlugin(),
   ]
 };
