@@ -1,6 +1,6 @@
 kind: pipeline
 type: docker
-name: dev-build
+name: lambdas
 
 platform:
   os: linux
@@ -17,13 +17,13 @@ steps:
   commands:
     - npm run test
 
-- name: dist
+- name: build
   image: node:alpine
   commands:
     - npm run docs
-    - npm run dist
+    - npm run build
 
-- name: publish
+- name: publish-doc
   image: appleboy/drone-scp
   settings:
     host: 
@@ -33,8 +33,21 @@ steps:
     password: 
       from_secret: password
     port: 22
+    rm: true
+    strip_components: 1
     target: /var/www/lambdas
-    source: 
-      - docs
-      - dist
-      - coverage
+    source: docs
+
+- name: publish-umd
+  image: appleboy/drone-scp
+  settings:
+    host: 
+      from_secret: hostname
+    username: 
+      from_secret: username
+    password: 
+      from_secret: password
+    port: 22
+    strip_components: 1
+    target: /var/www/myumd/lambdas
+    source: dist

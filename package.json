@@ -17,7 +17,7 @@
   },
   "scripts": {
     "test": "jest",
-    "dist": "webpack",
+    "build": "webpack",
     "docs": "jsdoc -c jsdoc.config.json"
   },
   "devDependencies": {
