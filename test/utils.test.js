@@ -1,4 +1,4 @@
-import * as utils from '../source/utils';
+import * as utils from '../src/utils';
 
 describe('utils', () => {
   test('utils.fail', () => {

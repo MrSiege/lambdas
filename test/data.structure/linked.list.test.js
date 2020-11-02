@@ -1,5 +1,5 @@
-import { LinkedList } from '../../source/data.structure';
-import { tap } from '../../source/combinators';
+import { LinkedList } from '../../src/data.structure';
+import { tap } from '../../src/combinators';
 
 describe('data.structure LinkedList', () => {
   test('linkedList', () => {

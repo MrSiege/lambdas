@@ -1,5 +1,5 @@
-import { Tree } from '../../source/data.structure';
-import { tap } from '../../source/combinators'
+import { Tree } from '../../src/data.structure';
+import { tap } from '../../src/combinators'
 
 describe('data.structure Tree', () => {
   test('tree.constructor', () => {

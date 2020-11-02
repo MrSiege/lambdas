@@ -2,14 +2,15 @@ const path = require("path");
 const webpack = require("webpack");
 const package = require("./package");
 const banner = require("./banner");
+const Webpackbar = require('webpackbar');
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   stats: 'normal',
-  mode: 'production',
-  entry: './source/index.js',
+  mode: 'development',
+  entry: './src/index.js',
   output: {
-    library: 'lambdas',
+    library: 'Lambdas',
     libraryTarget: 'umd',
     filename: 'lambdas.min.js',
     path: path.resolve(__dirname, `./dist/${package.version}`)
@@ -24,6 +25,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new Webpackbar(),
     new webpack.BannerPlugin(banner),
     new CleanWebpackPlugin(),
   ]

@@ -1,4 +1,4 @@
-import * as langs from '../source/lang';
+import * as langs from '../src/lang';
 
 describe('langs', () => {
   test('langs.isString', () => {

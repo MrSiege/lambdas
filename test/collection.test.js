@@ -1,4 +1,4 @@
-import * as collections from '../source/collection';
+import * as collections from '../src/collection';
 
 describe('collections', () => {
   test('collections.allof', () => {

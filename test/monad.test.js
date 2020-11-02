@@ -1,4 +1,4 @@
-import * as monads from '../source/monad';
+import * as monads from '../src/monad';
 
 describe('monad', () => {
   test('monad.maybe', () => {

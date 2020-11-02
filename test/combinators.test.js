@@ -1,4 +1,4 @@
-import * as combinators from '../source/combinators';
+import * as combinators from '../src/combinators';
 
 describe('combinators', () => {
   test('combinators.alt', () => {

@@ -1,4 +1,4 @@
-import * as objects from '../source/object';
+import * as objects from '../src/object';
 
 describe('objects', () => {
   test('objects.get', () => {

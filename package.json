@@ -14,7 +14,7 @@
   },
   "scripts": {
     "test": "jest",
-    "build": "webpack",
+    "build": "webpack --mode production",
     "docs": "jsdoc -c jsdoc.config.json"
   },
   "devDependencies": {
@@ -32,6 +32,7 @@
     "jsdoc": "^3.6.3",
     "regenerator-runtime": "^0.13.5",
     "webpack": "^4.29.0",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "webpackbar": "^4.0.0"
   }
 }

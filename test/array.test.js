@@ -1,4 +1,4 @@
-import * as arrays from '../source/array';
+import * as arrays from '../src/array';
 
 describe('arrays', () => {
   test('arrays.nth', () => {

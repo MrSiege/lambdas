@@ -1,4 +1,4 @@
-import * as functions from '../source/function';
+import * as functions from '../src/function';
 
 describe('functions', () => {
   test('function.comparator', () => {
