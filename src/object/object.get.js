@@ -1,7 +1,5 @@
 import { Maybe } from '../monad';
 import { reduce } from '../collection';
-import { exist } from '../lang';
-import { fail } from '../utils';
 
 /**
  * 根据属性路径取给定对象的属性值，该方法是安全的，不会抛出空指针异常。
@@ -11,24 +9,15 @@ import { fail } from '../utils';
  * @return {*} result 取得的值
  */
 function get(path, target){
-  if(!exist(path)) fail('path is undefined');
+  const trimRegExp = /(\[|\]|\.)/g;
+  const pathRegExp = /(\[\w+\]|\.{1}\w+|\w+)/ig;
+  const scalars = path.match(pathRegExp).map(v => v.replace(trimRegExp, ''));
 
-  //　路径标量
-  const pathScalar = (
-    path
-    .match(/(\[\w+\]|\.{1}\w+|\w+)/ig)
-    .map(v => v.replace(/(\[|\]|\.)/g, ''))
-  );
-
-  // 迭代路径标量
-  const maybe = reduce(
-    pathScalar, 
-    (sum, v) => sum.map(a => a[v]), 
-    Maybe.of(target), 
-    null,
-  );
-
-  return maybe.getOrElse();
+  return reduce(
+    scalars,
+    (O, P) => O.map(V => V[P]), 
+    Maybe.of(target),
+  ).getOrElse();
 }
 
 export default get;

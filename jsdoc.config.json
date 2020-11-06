@@ -5,15 +5,15 @@
   },
   "source": {
     "include": [
-      "source/",
-      "source/array",
-      "source/collection",
-      "source/data.structure",
-      "source/function",
-      "source/lang",
-      "source/monad",
-      "source/object",
-      "source/utils"
+      "src/",
+      "src/array",
+      "src/collection",
+      "src/data.structure",
+      "src/function",
+      "src/lang",
+      "src/monad",
+      "src/object",
+      "src/utils"
     ],
     "exclude": ["node_modules"],
     "includePattern": ".+\\.js(doc)?$",

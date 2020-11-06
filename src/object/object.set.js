@@ -1,39 +1,25 @@
-import { Maybe } from '../monad';
-import { reduce } from '../collection';
 import { tap } from '../combinators';
-import { exist } from '../lang';
-import { fail } from '../utils';
+import { reduce } from '../collection';
 
 /**
  * 根据属性路径设定给定对象的属性值，该方法是安全的，不会抛出空指针异常。
- * 该函数是对 monad maybe 的特定封装
  * @param {string} path 属性路径
  * @param {*} 　　　value 属性值
  * @param {object} target 给定对象
- * @return {void}
+ * @return {object} 给定对象
  */
 function set(path, value, target){
-  if(!exist(path)) fail('path is undefined');
+  const trimRegExp = /(\[|\]|\.)/g;
+  const pathRegExp = /(\[\w+\]|\.{1}\w+|\w+)/ig;
+  const scalars = path.match(pathRegExp).map(v => v.replace(trimRegExp, ''));
 
-  //　路径标量
-  const pathScalars = (
-    path
-    .match(/(\[\w+\]|\.{1}\w+|\w+)/ig)
-    .map(v => v.replace(/(\[|\]|\.)/g, ''))
-  );
-  
-  const absolutePathScalar = pathScalars.slice().pop();
-  const prefixPathScalars = tap(v => v.pop(), pathScalars.slice());
+  reduce(
+    scalars.slice(0, scalars.length - 1),
+    (O, P) => O[P] ? O[P] : tap(v => O[P] = v, {}), 
+    target,
+  )[scalars.pop()] = value;
 
-  // 迭代前缀路径标量
-  const maybe = reduce(
-    prefixPathScalars,
-    (sum, v) => sum.map(a => a[v]),
-    Maybe.of(target), 
-    null,
-  );
-
-  maybe.map(v => v[absolutePathScalar] = value);
+  return target;
 }
 
 export default set;

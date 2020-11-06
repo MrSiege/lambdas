@@ -7,5 +7,6 @@ export { default as map } from './array.map';
 export { default as nth } from './array.nth';
 export { default as reverse } from './array.reverse';
 export { default as sortBy } from './array.sortBy';
-export { default as zip } from './array.zip';
+export { default as uniq } from './array.uniq';
 export { default as unzip } from './array.unzip';
+export { default as zip } from './array.zip';

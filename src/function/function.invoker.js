@@ -8,8 +8,9 @@ function invoker(name, method) {
   return (target, ...args) => {
     const targetMethod = target[name]
 
-    if(targetMethod && method === targetMethod) return targetMethod.apply(target, args);
-    else return undefined;
+    if(targetMethod && method === targetMethod) {
+      return targetMethod.apply(target, args);
+    }
   }
 }
 

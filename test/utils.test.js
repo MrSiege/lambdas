@@ -1,19 +1,43 @@
 import * as utils from '../src/utils';
+import * as combinators from '../src/combinators';
 
 describe('utils', () => {
   test('utils.fail', () => {
     expect(utils.fail).toThrow();
   })
+
+  test('utils.times', () => {
+    const result1 = utils.times(combinators.identity, 6);
+    const result2 = utils.times(v => v * 2, 6);
+    const result3 = utils.times(v => v * v, 6);
+
+    console.log(result1);
+    console.log(result2);
+    console.log(result3);
+    
+    expect(result1).toEqual([0, 1, 2, 3, 4, 5]);
+    expect(result2).toEqual([0, 2, 4, 6, 8, 10]);
+    expect(result3).toEqual([0, 1, 4, 9, 16, 25]);
+  })
   
   test('utils.uuid', () => {
-    const uuid = utils.uuid();
-    expect(uuid.length).toEqual(36);
+    const uuid1 = utils.uuid();
+    const uuid2 = utils.uuid();
+    const uuid3 = utils.uuid();
+    const uuid4 = utils.uuid();
+
+    console.log(`uuid: ${uuid1}`);
+    console.log(`uuid: ${uuid2}`);
+    console.log(`uuid: ${uuid3}`);
+    console.log(`uuid: ${uuid4}`);
+
+    expect(uuid1.length).toEqual(36);
   })
 
   test('utils.validation', () => {
     const checkers = utils.validation([
       utils.validation.test('请填写您的姓名', v => v.name),
-      utils.validation.test('请填写正确的性别', v => v.sex === 'boy' || v.sex === 'girl'),
+      utils.validation.test('请填写正确的性别', v => ({ boy: 1, girl: 1 }[v.sex])),
       utils.validation.test('请填写您的毕业院校', v => v.graduatedSchool),
     ]);
     

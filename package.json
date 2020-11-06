@@ -4,6 +4,7 @@
   "license": "MIT",
   "version": "0.0.1",
   "private": false,
+  "module": "src/index.js",
   "description": "函数式范例文档",
   "engines": {
     "node": ">=6.0.0"
@@ -26,8 +27,6 @@
     "babel-preset-env": "^1.7.0",
     "clean-webpack-plugin": "^3.0.0",
     "docdash": "^1.1.1",
-    "eslint": "^5.15.3",
-    "eslint-config-airbnb": "^17.1.0",
     "jest": "^24.9.0",
     "jsdoc": "^3.6.3",
     "regenerator-runtime": "^0.13.5",

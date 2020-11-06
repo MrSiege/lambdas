@@ -6,7 +6,7 @@ const Webpackbar = require('webpackbar');
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
-  stats: 'normal',
+  stats: 'minimal',
   mode: 'development',
   entry: './src/index.js',
   output: {
