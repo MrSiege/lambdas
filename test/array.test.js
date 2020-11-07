@@ -130,9 +130,9 @@ describe('arrays', () => {
     const target3 = [[1, undefined, 3], ['one', 'two', null]];
     const source3 = [[1, 'one'], [undefined, 'two'], [3, null]];
 
-    expect(arrays.zip(source1)).toEqual(target1);
-    expect(arrays.zip(source2)).toEqual(target2);
-    expect(arrays.zip(source3)).toEqual(target3);
+    expect(arrays.unzip(source1)).toEqual(target1);
+    expect(arrays.unzip(source2)).toEqual(target2);
+    expect(arrays.unzip(source3)).toEqual(target3);
   })
 
 

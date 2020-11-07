@@ -1,3 +1,4 @@
+export { default as chain } from './utils.chain';
 export { default as documentWrite } from './utils.documentWrite';
 export { default as documentWriteln } from './utils.documentWriteln';
 export { default as fail } from './utils.fail';

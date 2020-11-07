@@ -2,18 +2,20 @@ import * as utils from '../src/utils';
 import * as combinators from '../src/combinators';
 
 describe('utils', () => {
+  test('utils.chain', () => {
+    utils.chain([]);
+  })
+
   test('utils.fail', () => {
-    expect(utils.fail).toThrow();
+    expect(() => utils.fail('system error.')).toThrow();
+    expect(() => utils.fail('network error.')).toThrow();
+    expect(() => utils.fail('IO(input/output) error.')).toThrow();
   })
 
   test('utils.times', () => {
     const result1 = utils.times(combinators.identity, 6);
     const result2 = utils.times(v => v * 2, 6);
     const result3 = utils.times(v => v * v, 6);
-
-    console.log(result1);
-    console.log(result2);
-    console.log(result3);
     
     expect(result1).toEqual([0, 1, 2, 3, 4, 5]);
     expect(result2).toEqual([0, 2, 4, 6, 8, 10]);
@@ -32,36 +34,40 @@ describe('utils', () => {
     console.log(`uuid: ${uuid4}`);
 
     expect(uuid1.length).toEqual(36);
+    expect(uuid2.length).toEqual(36);
+    expect(uuid3.length).toEqual(36);
+    expect(uuid4.length).toEqual(36);
   })
 
   test('utils.validation', () => {
-    const checkers = utils.validation([
-      utils.validation.test('请填写您的姓名', v => v.name),
-      utils.validation.test('请填写正确的性别', v => ({ boy: 1, girl: 1 }[v.sex])),
-      utils.validation.test('请填写您的毕业院校', v => v.graduatedSchool),
+    const validation = utils.validation;
+    const test = utils.validation.test;
+    const notify = utils.validation.notify;
+
+    const source1 = { name: 'wei', sex: 'boy', university: 'Cambridge University' };
+    const source2 = { name: 'kiko', sex: 'girl', university: 'Kyoto University' };
+    const source3 = { name: 'luna', sex: 'female', university: 'Fudan University' };
+
+    const validates = validation([
+      test('请填写您的姓名', v => v.name),
+      test('请填写您的毕业院校', v => v.university),
+      test('请填写正确的性别', v => ({ boy: 1, girl: 1 }[v.sex])),
     ]);
-    
-    const datasource1 = { name: 'wei', sex: 'boy', graduatedSchool: 'Cambridge University' };
-    const datasource2 = { name: 'kiko', sex: 'girl', graduatedSchool: 'Kyoto University' };
-    const datasource3 = { name: 'Luna', sex: 'female', graduatedSchool: 'Hogwarts Ravenclaw University' };
-    
-    const result1 = checkers(datasource1);
-    const result2 = checkers(datasource2);
-    const result3 = checkers(datasource3);
 
-    const mockCallback = jest.fn();
-    utils.validation.notify(mockCallback, result1);
-    utils.validation.notify(mockCallback, result2);
-    utils.validation.notify(mockCallback, result3);
-    utils.validation.notify(mockCallback, [result1, result2, result3]);
+    const result1 = validates(source1);
+    const result2 = validates(source2);
+    const result3 = validates(source3);
 
-    expect(result1.result).toEqual(true);
-    expect(result2.messages).toEqual([]);
-    expect(result3.messages).toEqual(['请填写正确的性别']);
+    const callback = jest.fn();
+    notify(callback, result1);
+    notify(callback, result2);
+    notify(callback, result3);
 
-    expect(mockCallback.mock.calls.length).toEqual(2);
-    expect(mockCallback.mock.calls[0][0]).toEqual('请填写正确的性别');
-    expect(mockCallback.mock.calls[1][0]).toEqual('请填写正确的性别');
+    expect(result1).toEqual([]);
+    expect(result2).toEqual([]);
+    expect(result3).toEqual(['请填写正确的性别']);
+    expect(callback.mock.calls.length).toEqual(1);
+    expect(callback.mock.calls[0][0]).toEqual('请填写正确的性别');
   })
 
   test('utils.other', () => {

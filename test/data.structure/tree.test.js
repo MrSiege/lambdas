@@ -1,5 +1,4 @@
 import { Tree } from '../../src/data.structure';
-import { tap } from '../../src/combinators'
 
 describe('data.structure Tree', () => {
   test('tree.constructor', () => {
@@ -9,41 +8,50 @@ describe('data.structure Tree', () => {
     const node4 = Tree.of({ title: '童话' });
     const node5 = Tree.of({ title: '文学' }, [node1, node2, node3, node4]);
 
-    node5.map(v => console.log('tree -> ', v.title));
     expect(node1.data.title).toEqual('诗歌');
     expect(node1.children).toEqual([]);
     expect(node5.data.title).toEqual('文学');
     expect(node5.children).toEqual([node1, node2, node3, node4]);
   });
 
+
+
   test('tree.map', () => {
-    const tree = Tree.of({ title: '范畴论' }, [
-      Tree.of({ title: '拓扑学' }),
-      Tree.of({ title: '代数学' }),
-      Tree.of({ title: '集合论' }),
-      Tree.of({ title: '数论' }, [
-        Tree.of({ title: '初等数论' }),
-        Tree.of({ title: '高等数论' }),
-        Tree.of({ title: '代数数论' }),
-      ]),
-    ]);
+    const source = (
+      Tree.of('范畴论', [
+        Tree.of('拓扑学'),
+        Tree.of('代数学'),
+        Tree.of('集合论'),
+        Tree.of('数论', [
+          Tree.of('初等数论'),
+          Tree.of('高等数论'),
+          Tree.of('代数数论'),
+        ]),
+      ])
+    );
 
-    const nameMap = new Map();
-    nameMap.set('范畴论', 'Category theory');
-    nameMap.set('拓扑学', 'Topology');
-    nameMap.set('代数学', 'Algebra');
-    nameMap.set('集合论', 'Set theory');
-    nameMap.set('数论', 'Number Theory');
-    nameMap.set('初等数论', 'Elementary number theory');
-    nameMap.set('高等数论', 'Higher number theory');
-    nameMap.set('代数数论', 'Algebraic number theory');
+    const names = (
+      (new Map())
+      .set('范畴论', 'Category theory')
+      .set('拓扑学', 'Topology')
+      .set('代数学', 'Algebra')
+      .set('集合论', 'Set theory')
+      .set('数论', 'Number Theory')
+      .set('初等数论', 'Elementary number theory')
+      .set('高等数论', 'Higher number theory')
+      .set('代数数论', 'Algebraic number theory')
+    );
 
-    const RTree = tree.map(v => ({ title: nameMap.get(v.title) }));
-    expect(RTree).not.toStrictEqual(tree);
-    expect(RTree.data.title).toEqual('Category theory');
-    expect(RTree.children[0].data.title).toEqual('Topology');
-    expect(RTree.children[3].children[2].data.title).toEqual('Algebraic number theory');
+    const rename = v => names.get(v);
+    const result = source.map(rename);
+
+    expect(result).not.toStrictEqual(source);
+    expect(result.data).toEqual('Category theory');
+    expect(result.children[0].data).toEqual('Topology');
+    expect(result.children[3].children[2].data).toEqual('Algebraic number theory');
   });
+
+
 
   test('tree.find', () => {
     const tree = Tree.of({ title: '乐器' }, [
@@ -65,13 +73,12 @@ describe('data.structure Tree', () => {
         Tree.of({ title: '洞萧' }),
       ]),
     ]);
-    
+
     const result1 = tree.find(v => v.title === '乐器');
     const result2 = tree.find(v => v.title === '古钢琴');
     const result3 = tree.find(v => v.title === '琴萧');
     const result4 = tree.find(v => v.title === '小提琴');
-    
-    tree.map(v => console.log('tree -> ', v.title));
+
     expect(result1.data.title).toEqual('乐器');
     expect(result2.data.title).toEqual('古钢琴');
     expect(result3.data.title).toEqual('琴萧');

@@ -51,6 +51,13 @@ describe('collections', () => {
     expect(result).toEqual({ '1': 2, '2': 1 });
   });
   
+  test('collections.last', () => {
+    const source = [1, 2, 3, 4, 5, 6];
+    const result =  collections.last(source, 'name');
+    
+    expect(result).toEqual(6);
+  });
+
   test('collections.pluck', () => {
     const datasrouce1 = [{name: 'wei'}, {name: 'kiko'}];
     const result =  collections.pluck(datasrouce1, 'name');
