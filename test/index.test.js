@@ -1,7 +1,5 @@
-import Lambdaλ from '../src';
-import * as lambdaλ from '../src';
+import * as Lambdaλ from '../src';
 
 test('index.all', () => {
   expect(!!Lambdaλ).toEqual(true);
-  expect(!!lambdaλ).toEqual(true);
 });

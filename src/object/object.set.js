@@ -1,5 +1,6 @@
+import { Maybe } from '../monad';
 import { tap } from '../combinators';
-import { reduce } from '../collection';
+import { reduce, last } from '../collection';
 
 /**
  * 根据属性路径设定给定对象的属性值，该方法是安全的，不会抛出空指针异常。
@@ -11,13 +12,20 @@ import { reduce } from '../collection';
 function set(path, value, target){
   const trimRegExp = /(\[|\]|\.)/g;
   const pathRegExp = /(\[\w+\]|\.{1}\w+|\w+)/ig;
-  const scalars = path.match(pathRegExp).map(v => v.replace(trimRegExp, ''));
+
+  const scalars = (
+    Maybe
+    .of(path)
+    .map(v => v.match(pathRegExp))
+    .map(v => v.map(s => s.replace(trimRegExp, '')))
+    .getOrElse([])
+  );
 
   reduce(
-    scalars.slice(0, scalars.length - 1),
+    tap(v => v.pop(), scalars.slice()),
     (O, P) => O[P] ? O[P] : tap(v => O[P] = v, {}), 
     target,
-  )[scalars.pop()] = value;
+  )[last(scalars)] = value;
 
   return target;
 }

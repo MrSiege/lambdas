@@ -1,6 +1,7 @@
 import { isIndexed, isFunction } from '../lang';
 import { fail } from '../utils';
 import { Stack } from '../data.structure';
+import { identity } from '../combinators';
 import { default as each } from './array.each';
 
 /**
@@ -9,7 +10,7 @@ import { default as each } from './array.each';
  * @param {function} pickup 数据拾取函数
  * @return {object} 排序结果
  * */
-function sortBy(dataSource, pickup) {
+function sortBy(dataSource, pickup = identity) {
   if (!isFunction(pickup)) {
     fail("Expects data of a function type as a parameter");
   }

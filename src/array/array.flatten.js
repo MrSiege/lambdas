@@ -1,16 +1,18 @@
 import { isArray } from '../lang';
+import { identity } from '../combinators';
 
 /**
  * 展平数组
- * @param {array} target 目标数组
- * @return 展平后的数组
+ * @param {array} source 源
+ * @return {array} 展平后的数组
  */
 
-function flatten(list) {
+function flatten(source) {
   return (
-    list
+    source
     .map(v => isArray(v) ? v : [v])
-    .reduce((sum, v) => sum.concat(v))
+    .reduce((sum, v) => sum.concat(v), [])
+    .filter(identity)
   );
 }
 

@@ -11,7 +11,14 @@ import { reduce } from '../collection';
 function get(path, target){
   const trimRegExp = /(\[|\]|\.)/g;
   const pathRegExp = /(\[\w+\]|\.{1}\w+|\w+)/ig;
-  const scalars = path.match(pathRegExp).map(v => v.replace(trimRegExp, ''));
+
+  const scalars = (
+    Maybe
+    .of(path)
+    .map(v => v.match(pathRegExp))
+    .map(v => v.map(s => s.replace(trimRegExp, '')))
+    .getOrElse([])
+  );
 
   return reduce(
     scalars,
