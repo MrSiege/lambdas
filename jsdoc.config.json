@@ -8,6 +8,7 @@
       "src/",
       "src/array",
       "src/collection",
+      "src/combinators",
       "src/data.structure",
       "src/function",
       "src/lang",
