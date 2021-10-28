@@ -1,6 +1,6 @@
 import { isIndexed, isFunction } from '../lang';
 import { fail } from '../utils';
-import { Stack } from '../data.structure';
+import { Stack } from '../struct';
 import { identity } from '../combinators';
 import { default as each } from './array.each';
 

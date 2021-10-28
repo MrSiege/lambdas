@@ -5,19 +5,18 @@
   },
   "source": {
     "include": [
-      "src/",
       "src/array",
       "src/collection",
       "src/combinators",
-      "src/data.structure",
       "src/function",
       "src/lang",
       "src/monad",
       "src/object",
+      "src/struct",
       "src/utils"
     ],
     "exclude": ["node_modules"],
-    "includePattern": ".+\\.js(doc)?$",
+    "includePattern": ".js$",
     "excludePattern": "node_modules"
   },
   "plugins": [
@@ -38,8 +37,8 @@
     "search": true,
     "wrap": true,
     "meta": {
-      "title": "lambdasλ",
-      "description": "纯函数式编程库"
+      "title": "λ-",
+      "description": "FP LIB"
     }
   }
 } 

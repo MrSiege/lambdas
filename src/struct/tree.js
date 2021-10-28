@@ -1,6 +1,6 @@
 import { identity } from '../combinators';
 
-class Tree {
+export default class Tree {
   constructor(data, children = []){
     this.data = data;
     this.children = children;
@@ -57,5 +57,3 @@ class Tree {
     return this;
   }
 }
-
-export default Tree;

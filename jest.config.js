@@ -1,7 +1,7 @@
 module.exports = {
-  name: "lambdas",
-  testRegex: "/test/.*.test.jsx?$",
-  testEnvironment: "jsdom",
+  name: 'lambdas',
   verbose: true,
   collectCoverage: true,
-};
+  testEnvironment: 'jsdom',
+  testRegex: 'test/*.js?$',
+}

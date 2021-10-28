@@ -1,8 +1,4 @@
-/**
- * 数据结构 - 栈的实现
- * @author william caulfield
- * */
-class Stack {
+export default class Stack {
   /**
    * 构造函数
    * @constructor
@@ -75,5 +71,3 @@ class Stack {
     return this.top === this.size;
   }
 }
-
-export default Stack;

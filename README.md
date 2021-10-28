@@ -10,11 +10,10 @@
 
 参考书目与文献
 
-- 《JavaScript函数式编程》作者 Michael Fogus，ISBN 9787115390608，人民邮电出版社
-- 《JavaScript函数式编程指南》作者 Luis Atencio，ISBN 9787115462046，人民邮电出版社
-
-- 《Category Theory For Programmers》作者 Bartosz Milewski，ISBN 9781518403507，ImageWrap Press
-- 《An Introduction to Category Theory》作者 Harold Simmons，ISBN 9780511863226，Cambridge University Press
+- *<a style='font-size:12px'>《JavaScript函数式编程》作者 Michael Fogus, ISBN 9787115390608, 人民邮电出版社</a>*
+- *<a style='font-size:12px'>《JavaScript函数式编程指南》作者 Luis Atencio, ISBN 9787115462046, 人民邮电出版社</a>*
+- *<a style='font-size:12px'>《Category Theory For Programmers》作者 Bartosz Milewski, ISBN 9781518403507, ImageWrap Press</a>*
+- *<a style='font-size:12px'>《An Introduction to Category Theory》作者 Harold Simmons, ISBN 9780511863226, Cambridge University Press</a>*
 
 *注意：这个项目是用来学习交流 `FP` 范式的，请不要用于企业的生产环境。当然，个人的学习项目请随意使用。*
 

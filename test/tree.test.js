@@ -1,6 +1,6 @@
-import { Tree } from '../../src/data.structure';
+import { Tree } from '../src/struct';
 
-describe('data.structure Tree', () => {
+describe('struct tree', () => {
   test('tree.constructor', () => {
     const node1 = Tree.of({ title: '诗歌' });
     const node2 = Tree.of({ title: '小说' });
